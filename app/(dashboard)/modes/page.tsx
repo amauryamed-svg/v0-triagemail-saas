@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Eye, Pen, Mic, Mail, PhoneCall, MessageCircle } from "lucide-react"
+import { Eye, Pen, Mic, Mail, PhoneCall, MessageCircle, ShieldCheck } from "lucide-react"
 import { ModeCard } from "@/components/mode-card"
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
@@ -12,9 +12,9 @@ const modes = [
   {
     id: "informativo",
     icon: Eye,
-    title: "Informativo",
-    description: "Solo te resumo. No respondo nada.",
-    footer: "Latencia <100ms · Haiku 4.5",
+    title: "Informativo · Junior",
+    description: "Solo te resumo en ≤150 caracteres. No respondo nada.",
+    footer: "Tier Junior · Latencia <100ms · Haiku 4.5",
   },
   {
     id: "senior-review",
@@ -67,6 +67,7 @@ const automodeChannels: {
 
 export default function ModesPage() {
   const [activeMode, setActiveMode] = useState("senior-review")
+  const [proReviewEnabled, setProReviewEnabled] = useState(true)
   const [activeChannels, setActiveChannels] = useState<Record<ChannelKey, boolean>>({
     email_voice: true,
     oncall: false,
@@ -139,11 +140,55 @@ export default function ModesPage() {
           >
             <div>
               <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">
-                Canales de respuesta · Automode
+                Configuración · Automode
               </h2>
               <p className="text-sm text-muted-foreground">
-                Selecciona por dónde puede responder Emily con tu voz clonada. No solo correo.
+                Selecciona la profundidad de revisión y los canales por donde Emily responde con tu voz clonada.
               </p>
+            </div>
+
+            {/* Pro Review toggle — pase de validación reforzada */}
+            <div
+              className={cn(
+                "flex items-center gap-4 p-4 rounded-xl border bg-surface transition-colors",
+                proReviewEnabled
+                  ? "border-brand/40 hover:border-brand/60"
+                  : "border-white/[0.06] hover:bg-white/[0.02]",
+              )}
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                style={{
+                  background: proReviewEnabled ? "rgba(124, 122, 237, 0.15)" : "rgba(255,255,255,0.04)",
+                  color: proReviewEnabled ? "rgb(124, 122, 237)" : "rgb(161, 161, 170)",
+                }}
+              >
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-medium text-foreground">Pro Review</h3>
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-brand bg-brand/10 px-1.5 py-0.5 rounded">
+                    Refuerzo
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Emily revisa el draft contra el historial del contacto, conflictos de calendario y sensibilidad del thread antes de habilitar el envío. Más despacio, más confianza.
+                </p>
+              </div>
+              <Switch
+                checked={proReviewEnabled}
+                onCheckedChange={(v) => {
+                  setProReviewEnabled(v)
+                  toast(v ? "Pro Review activo. Validación reforzada antes de cada envío." : "Pro Review desactivado.")
+                }}
+              />
+            </div>
+
+            <div className="pt-2">
+              <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+                Canales de respuesta
+              </h3>
             </div>
 
             <div className="grid gap-3">

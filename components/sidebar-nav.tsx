@@ -4,11 +4,12 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { 
-  Inbox, 
-  FileEdit, 
-  Layers, 
-  Settings, 
+import {
+  Inbox,
+  FileEdit,
+  Layers,
+  Settings,
+  Users,
   ChevronLeft,
   ChevronRight,
   Filter
@@ -20,6 +21,7 @@ import { cn } from "@/lib/utils"
 const navItems = [
   { href: "/dashboard", label: "Bandeja", icon: Inbox },
   { href: "/drafts", label: "Borradores", icon: FileEdit },
+  { href: "/contacts", label: "Contactos", icon: Users },
   { href: "/modes", label: "Modos", icon: Layers },
   { href: "/rules", label: "Reglas", icon: Filter },
   { href: "/settings", label: "Ajustes", icon: Settings },

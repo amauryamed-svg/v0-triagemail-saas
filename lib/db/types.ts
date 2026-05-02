@@ -58,41 +58,71 @@ export type Database = {
       }
       contacts: {
         Row: {
+          contact_type: string
           created_at: string
           email: string | null
+          emily_treatment_note: string | null
           id: string
+          inbound_count: number
           instagram_handle: string | null
           is_vip: boolean
+          last_interaction_at: string | null
           last_push_at: string | null
           last_push_channel: string | null
           name: string | null
+          next_touchpoint_suggested_at: string | null
+          organization: string | null
+          outbound_count: number
           push_count: number
+          relationship_strength: number
+          role: string | null
+          suggested_cadence: string | null
           user_id: string
           whatsapp_phone: string | null
         }
         Insert: {
+          contact_type?: string
           created_at?: string
           email?: string | null
+          emily_treatment_note?: string | null
           id?: string
+          inbound_count?: number
           instagram_handle?: string | null
           is_vip?: boolean
+          last_interaction_at?: string | null
           last_push_at?: string | null
           last_push_channel?: string | null
           name?: string | null
+          next_touchpoint_suggested_at?: string | null
+          organization?: string | null
+          outbound_count?: number
           push_count?: number
+          relationship_strength?: number
+          role?: string | null
+          suggested_cadence?: string | null
           user_id: string
           whatsapp_phone?: string | null
         }
         Update: {
+          contact_type?: string
           created_at?: string
           email?: string | null
+          emily_treatment_note?: string | null
           id?: string
+          inbound_count?: number
           instagram_handle?: string | null
           is_vip?: boolean
+          last_interaction_at?: string | null
           last_push_at?: string | null
           last_push_channel?: string | null
           name?: string | null
+          next_touchpoint_suggested_at?: string | null
+          organization?: string | null
+          outbound_count?: number
           push_count?: number
+          relationship_strength?: number
+          role?: string | null
+          suggested_cadence?: string | null
           user_id?: string
           whatsapp_phone?: string | null
         }
