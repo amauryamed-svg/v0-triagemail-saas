@@ -7,6 +7,7 @@ import { ModeCard } from "@/components/mode-card"
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
+import { useActiveMode, type ActiveModeId } from "@/lib/use-active-mode"
 
 const modes = [
   {
@@ -66,7 +67,7 @@ const automodeChannels: {
 ]
 
 export default function ModesPage() {
-  const [activeMode, setActiveMode] = useState("senior-review")
+  const { mode: activeMode, setMode: setActiveMode } = useActiveMode("senior-review")
   const [proReviewEnabled, setProReviewEnabled] = useState(true)
   const [activeChannels, setActiveChannels] = useState<Record<ChannelKey, boolean>>({
     email_voice: true,
@@ -75,7 +76,7 @@ export default function ModesPage() {
   })
 
   const handleModeSelect = (modeId: string) => {
-    setActiveMode(modeId)
+    setActiveMode(modeId as ActiveModeId)
     const mode = modes.find(m => m.id === modeId)
     toast(`Listo. Modo cambiado a ${mode?.title}.`)
   }
