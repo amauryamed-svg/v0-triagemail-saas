@@ -10,6 +10,7 @@ import { VoiceRecorder } from "@/components/voice-recorder"
 import { ModeCard } from "@/components/mode-card"
 import { WhatsAppConnector } from "@/components/whatsapp-connector"
 import { InstagramConnector } from "@/components/instagram-connector"
+import { EmilyAvatar } from "@/components/triagemail/emily-avatar"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 
@@ -100,7 +101,47 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 gap-6">
+      {/* Hero de bienvenida — Emily saluda al usuario en el paso 1 */}
+      <AnimatePresence>
+        {currentStep === 1 && (
+          <motion.div
+            key="emily-hero"
+            initial={{ opacity: 0, y: -12, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -16, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="text-center max-w-md overflow-hidden"
+          >
+            {/* Avatar grande de Emily */}
+            <motion.div
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1, type: "spring", stiffness: 220, damping: 18 }}
+              className="mx-auto w-16 h-16 rounded-2xl bg-brand flex items-center justify-center overflow-hidden p-1.5 mb-5"
+            >
+              <EmilyAvatar />
+            </motion.div>
+
+            <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-[0.18em] mb-2">
+              TriageMail · AI Mail Triage Agent
+            </p>
+            <h1 className="text-2xl font-semibold text-foreground mb-3 leading-tight">
+              Hola, soy Emily.
+            </h1>
+            <p className="text-muted-foreground leading-relaxed text-base">
+              Sé lo que pesa abrir el correo un lunes a las 7am con doscientos mensajes esperando.
+              Yo me lo llevo el sábado, pongo orden, y te dejo solo lo que importa.
+              <br />
+              <span className="text-foreground/85 font-medium">
+                Tú apruebas. Yo nunca envío sola.
+              </span>{" "}
+              Tres minutos para empezar.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Card className="w-full max-w-md border-white/[0.06] bg-surface">
         {/* Stepper */}
         <CardHeader className="space-y-4">
