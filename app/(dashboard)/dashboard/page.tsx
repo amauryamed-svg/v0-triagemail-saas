@@ -1,10 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Inbox } from "lucide-react"
 import { EmailCard, Email } from "@/components/email-card"
 import { cn } from "@/lib/utils"
+
+const DEMO_USER_EMAIL =
+  process.env.NEXT_PUBLIC_DEMO_USER_EMAIL ?? "demo@triagemail.app"
 
 const mockEmails: Email[] = [
   {
@@ -76,8 +79,29 @@ const filters = [
 
 export default function DashboardPage() {
   const [activeFilter, setActiveFilter] = useState("all")
+  const [emails, setEmails] = useState<Email[]>(mockEmails)
 
-  const filteredEmails = mockEmails.filter((email) => {
+  // Optional: hidrata desde Supabase si está seedeado. Si no, mantiene mock.
+  useEffect(() => {
+    let cancelled = false
+    fetch(`/api/emails?email=${encodeURIComponent(DEMO_USER_EMAIL)}`, {
+      cache: "no-store",
+    })
+      .then((r) => (r.ok ? r.json() : { emails: [] }))
+      .then((data: { emails: Email[] }) => {
+        if (!cancelled && data.emails && data.emails.length > 0) {
+          setEmails(data.emails)
+        }
+      })
+      .catch(() => {
+        // Silencio: fallback a mock.
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const filteredEmails = emails.filter((email) => {
     if (activeFilter === "all") return true
     if (activeFilter === "critical") return email.urgency === "urgent"
     if (activeFilter === "drafts") return email.hasDraft

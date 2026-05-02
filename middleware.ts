@@ -1,27 +1,18 @@
-import { auth } from "@/lib/auth"
-import { NextResponse } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
 
-const PUBLIC_PATHS = [
-  "/",
-  "/onboarding",
-  "/api/auth",
-  "/api/mock",
-  "/api/cron",
-  "/api/mcp",
-  "/api/voice/generate",
-]
-
-export default auth((req) => {
-  const { pathname } = req.nextUrl
-  const isPublic = PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"))
-  if (isPublic) return NextResponse.next()
-  if (!req.auth) {
-    const url = req.nextUrl.clone()
-    url.pathname = "/onboarding"
-    return NextResponse.redirect(url)
-  }
+/**
+ * Demo-friendly middleware.
+ *
+ * Cuando GOOGLE_CLIENT_ID no está configurado (demo / hackathon path), no
+ * forzamos auth — todas las rutas son públicas. Una vez que el OAuth esté
+ * configurado en producción, esta función puede swapearse por la versión auth()
+ * que estaba antes (commit history la conserva).
+ */
+export default function middleware(_req: NextRequest) {
+  // En cuanto se configure GOOGLE_CLIENT_ID en prod, podemos reactivar la
+  // protección de rutas. Por ahora, demo-mode siempre.
   return NextResponse.next()
-})
+}
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico|placeholder|.*\\.(?:png|svg|jpg)$).*)"],

@@ -1,17 +1,30 @@
 "use client"
 
-import { use, useState } from "react"
+import { use, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react"
 import Link from "next/link"
+import { toast } from "sonner"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { DraftApproval } from "@/components/draft-approval"
 import { cn } from "@/lib/utils"
 
-// Mock data for the email thread
-const mockThread = {
+type Thread = {
+  id: string
+  subject: string
+  participants: { name: string; email: string }[]
+  messages: { id: string; sender: string; senderEmail: string; timestamp: string; body: string; isCollapsed: boolean }[]
+  draft: {
+    mode: "senior-review" | "automode"
+    body: string
+    reasoning: { urgency: string; importance: string; deadline?: string; pushCount?: number }
+  }
+}
+
+// Mock fallback — usado cuando Supabase no está seedeado.
+const MOCK_THREAD: Thread = {
   id: "1",
   subject: "Urgente: Revisión del contrato antes del lunes",
   participants: [
@@ -45,7 +58,7 @@ const mockThread = {
     },
   ],
   draft: {
-    mode: "senior-review" as const,
+    mode: "senior-review",
     body: "Hola Carlos,\n\nGracias por el recordatorio. Ya revisé el contrato y todo se ve en orden. Puedes proceder con el envío al cliente.\n\nSolo una observación menor: en la cláusula 4.2 sobre los tiempos de entrega, sugiero cambiar \"30 días hábiles\" por \"25 días hábiles\" para darnos un margen de seguridad.\n\nFuera de eso, tienes luz verde para enviarlo.\n\nSaludos,\nAmaury",
     reasoning: {
       urgency: "Alto - Deadline mencionado explícitamente",
@@ -64,8 +77,65 @@ export default function DraftPage({ params }: PageProps) {
   const { id } = use(params)
   const router = useRouter()
   const [collapsedMessages, setCollapsedMessages] = useState<Set<string>>(
-    new Set(mockThread.messages.filter(m => m.isCollapsed).map(m => m.id))
+    new Set(MOCK_THREAD.messages.filter(m => m.isCollapsed).map(m => m.id))
   )
+  const [realDraftId, setRealDraftId] = useState<string | null>(null)
+  const [thread, setThread] = useState<Thread>(MOCK_THREAD)
+
+  // Hidrata desde Supabase si existe el draft real para este email_id.
+  useEffect(() => {
+    let cancelled = false
+    fetch(`/api/drafts/${id}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (cancelled || !data?.draft) return
+        setRealDraftId(data.draft.id)
+        const e = data.email
+        const d = data.draft
+        const urgencyLabel: Record<string, string> = {
+          critical: "Crítico — Deadline detectado",
+          high: "Alto — Requiere atención hoy",
+          med: "Medio",
+          normal: "Medio",
+          low: "Bajo",
+        }
+        setThread({
+          id: e.gmail_msg_id ?? id,
+          subject: e.subject ?? "(sin asunto)",
+          participants: [
+            { name: e.from_name ?? "", email: e.from_email ?? "" },
+          ],
+          messages: [
+            {
+              id: "real-msg",
+              sender: e.from_name ?? e.from_email ?? "(desconocido)",
+              senderEmail: e.from_email ?? "",
+              timestamp: "Reciente",
+              body: e.snippet ?? "",
+              isCollapsed: false,
+            },
+          ],
+          draft: {
+            mode: d.mode_generated === "automode" ? "automode" : "senior-review",
+            body: d.body,
+            reasoning: {
+              urgency: urgencyLabel[e.urgency] ?? e.urgency,
+              importance: `${e.importance}/5`,
+              deadline: e.deadline_detected_at
+                ? new Date(e.deadline_detected_at).toLocaleString("es-MX")
+                : undefined,
+              pushCount: data.push_count ?? 0,
+            },
+          },
+        })
+      })
+      .catch(() => {
+        // silent fallback to mock
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [id])
 
   const toggleCollapse = (messageId: string) => {
     setCollapsedMessages(prev => {
@@ -79,20 +149,33 @@ export default function DraftPage({ params }: PageProps) {
     })
   }
 
-  const handleApprove = () => {
+  const handleApprove = async () => {
+    if (realDraftId) {
+      try {
+        const r = await fetch(`/api/drafts/${realDraftId}/approve`, { method: "POST" })
+        if (!r.ok) throw new Error("approve failed")
+      } catch {
+        toast("No pudimos enviar. Reintenta en un momento.")
+        return
+      }
+    }
     router.push("/dashboard")
   }
 
-  const handleEdit = (newBody: string) => {
-    console.log("[v0] Draft edited:", newBody)
+  const handleEdit = (_newBody: string) => {
+    // Edit persistence queda como TODO (no bloqueante para demo).
   }
 
-  const handleReject = () => {
+  const handleReject = async () => {
+    if (realDraftId) {
+      try {
+        await fetch(`/api/drafts/${realDraftId}/reject`, { method: "POST" })
+      } catch {
+        // silenciamos en el demo
+      }
+    }
     router.push("/dashboard")
   }
-
-  // Use id for logging
-  console.log("[v0] Viewing draft:", id)
 
   return (
     <div className="min-h-screen">
@@ -108,17 +191,17 @@ export default function DraftPage({ params }: PageProps) {
 
       {/* Subject */}
       <h1 className="text-xl font-semibold text-foreground mb-6">
-        {mockThread.subject}
+        {thread.subject}
       </h1>
 
       {/* Two Column Layout */}
       <div className="grid lg:grid-cols-[1fr,400px] gap-6">
         {/* Left: Thread */}
         <div className="space-y-4">
-          {mockThread.messages.map((message, index) => {
+          {thread.messages.map((message, index) => {
             const isCollapsed = collapsedMessages.has(message.id)
             const initials = message.sender.split(" ").map(n => n[0]).join("").slice(0, 2)
-            const isLast = index === mockThread.messages.length - 1
+            const isLast = index === thread.messages.length - 1
 
             return (
               <motion.div
@@ -179,9 +262,9 @@ export default function DraftPage({ params }: PageProps) {
         {/* Right: Draft Approval */}
         <div className="lg:sticky lg:top-24 lg:self-start">
           <DraftApproval
-            mode={mockThread.draft.mode}
-            draftBody={mockThread.draft.body}
-            reasoning={mockThread.draft.reasoning}
+            mode={thread.draft.mode}
+            draftBody={thread.draft.body}
+            reasoning={thread.draft.reasoning}
             onApprove={handleApprove}
             onEdit={handleEdit}
             onReject={handleReject}
