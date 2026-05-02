@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Emily — Triage Mail Agentic',
+  title: 'Emily — AI Mail Triage Agent',
   description: 'Emily tría tu inbox, prepara borradores en tu voz y te devuelve el fin de semana. La asistente que logra lo imposible un sábado.',
   generator: 'v0.app',
 }
