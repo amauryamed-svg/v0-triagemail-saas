@@ -9,11 +9,16 @@ export const maxDuration = 60
  *
  * Este endpoint cumple el REQUISITO DURO de Track 2 del hackathon (v0 + MCPs).
  *
+ * Estructura de archivo: app/api/mcp/[transport]/route.ts
+ * Endpoints reales:
+ *   - POST /api/mcp/mcp  → Streamable HTTP (recomendado)
+ *   - GET  /api/mcp/sse  → Server-Sent Events (legacy)
+ *
  * Para usar desde Claude Desktop u otro cliente MCP:
  *   {
  *     "mcpServers": {
  *       "triagemail": {
- *         "url": "https://triagemail.vercel.app/api/mcp"
+ *         "url": "https://v0-triagemail-saas.vercel.app/api/mcp/mcp"
  *       }
  *     }
  *   }
