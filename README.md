@@ -1,8 +1,8 @@
-![TriageMail · Emily — AI Mail Triage Agent](./public/og-thumbnail.png)
+![TriageMail · Emily — AI-Powered Mail Triage Agent](./public/og-thumbnail.png)
 
 # TriageMail · Emily
 
-> **AI Mail Triage Agent** para ejecutivos en cooperación internacional, fundaciones ambientales y redes inter-institucionales que quieren descansar el correo el fin de semana.
+> **AI-Powered Mail Triage Agent** para ejecutivos en cooperación internacional, fundaciones ambientales y redes inter-institucionales que quieren descansar el correo el fin de semana.
 >
 > *"Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola."*
 

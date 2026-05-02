@@ -114,7 +114,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div>
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-          TriageMail · AI Mail Triage Agent
+          TriageMail · AI-Powered Mail Triage Agent
         </p>
         <h1 className="text-2xl font-semibold text-foreground mb-2">
           Buenos días, Amaury

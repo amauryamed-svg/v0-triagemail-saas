@@ -125,7 +125,7 @@ export default async function Image() {
               display: "flex",
             }}
           >
-            TRIAGEMAIL · AI MAIL TRIAGE AGENT
+            TRIAGEMAIL · AI-POWERED MAIL TRIAGE AGENT
           </div>
           <div
             style={{

@@ -11,7 +11,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://v0-triagemail-saas.vercel.app'),
-  title: 'TriageMail — AI Mail Triage Agent',
+  title: 'TriageMail — AI-Powered Mail Triage Agent',
   description:
     'Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola. Construido para ejecutivos en cooperación internacional, fundaciones ambientales y redes inter-institucionales.',
   generator: 'v0.app',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'cooperación internacional', 'fundaciones', 'asistente ejecutiva',
   ],
   openGraph: {
-    title: 'TriageMail · Emily — AI Mail Triage Agent',
+    title: 'TriageMail · Emily — AI-Powered Mail Triage Agent',
     description:
       'Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola.',
     url: '/',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TriageMail · Emily — AI Mail Triage Agent',
+    title: 'TriageMail · Emily — AI-Powered Mail Triage Agent',
     description:
       'Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola.',
     creator: '@v0byVercel',

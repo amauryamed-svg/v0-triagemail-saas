@@ -54,7 +54,7 @@ export function SidebarNav() {
                 className="flex flex-col leading-none"
               >
                 <span className="font-semibold text-foreground tracking-wide">EMILY</span>
-                <span className="text-[10px] text-muted-foreground mt-0.5">Ai mail triage agent</span>
+                <span className="text-[10px] text-muted-foreground mt-0.5">AI-powered mail triage agent</span>
               </motion.div>
             )}
           </AnimatePresence>
