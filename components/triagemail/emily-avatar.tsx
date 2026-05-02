@@ -23,32 +23,39 @@ export function EmilyAvatar({ className = "w-full h-full" }: { className?: strin
       whileHover={{ rotate: -4, scale: 1.06 }}
       transition={{ type: "spring", stiffness: 300, damping: 14 }}
     >
-      {/* Pelo crespo — cluster de puffs blancos */}
+      {/* Afro redondo — un halo grande + bumps de textura en el perímetro */}
       <motion.g
-        animate={{ y: [0, -0.4, 0] }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ y: [0, -0.35, 0] }}
+        transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <circle cx="9" cy="11" r="3.6" fill="white" />
-        <circle cx="13" cy="7.5" r="4" fill="white" />
-        <circle cx="19" cy="7.5" r="4" fill="white" />
-        <circle cx="23" cy="11" r="3.6" fill="white" />
-        <circle cx="10.5" cy="14" r="3.4" fill="white" />
-        <circle cx="21.5" cy="14" r="3.4" fill="white" />
-        <circle cx="16" cy="6" r="3.6" fill="white" />
+        {/* Volumen principal — círculo grande que enmarca la cara */}
+        <circle cx="16" cy="14" r="11.2" fill="white" />
+        {/* Bumps de textura — pequeños círculos en el perímetro para
+            romper la línea perfecta y dar el rizado natural */}
+        <circle cx="5.5" cy="11.5" r="2.6" fill="white" />
+        <circle cx="26.5" cy="11.5" r="2.6" fill="white" />
+        <circle cx="9" cy="5" r="2.4" fill="white" />
+        <circle cx="23" cy="5" r="2.4" fill="white" />
+        <circle cx="16" cy="3.2" r="2.7" fill="white" />
+        <circle cx="6.2" cy="17.5" r="2.4" fill="white" />
+        <circle cx="25.8" cy="17.5" r="2.4" fill="white" />
       </motion.g>
 
-      {/* Cara ovalada */}
-      <ellipse cx="16" cy="18" rx="5.4" ry="6.4" fill="white" />
+      {/* Cara — compacta y proporcional, mujer joven */}
+      <ellipse cx="16" cy="18.5" rx="4.6" ry="5.1" fill="white" />
 
-      {/* Lentes redondos — la firma de Emily */}
-      <g stroke="#0A0A0B" strokeWidth="0.95" fill="none">
-        <circle cx="13.5" cy="17.2" r="2.15" />
-        <circle cx="18.5" cy="17.2" r="2.15" />
-        <line x1="15.65" y1="17.2" x2="16.35" y2="17.2" strokeLinecap="round" />
+      {/* Cuello */}
+      <rect x="14.4" y="22.5" width="3.2" height="3" rx="0.6" fill="white" />
+
+      {/* Lentes — redondos delicados, la firma */}
+      <g stroke="#0A0A0B" strokeWidth="0.85" fill="none">
+        <circle cx="13.8" cy="17.6" r="1.9" />
+        <circle cx="18.2" cy="17.6" r="1.9" />
+        <line x1="15.7" y1="17.6" x2="16.3" y2="17.6" strokeLinecap="round" />
         {/* Patilla izquierda */}
-        <line x1="11.4" y1="17.2" x2="10.5" y2="17" strokeLinecap="round" />
+        <line x1="11.9" y1="17.55" x2="11" y2="17.4" strokeLinecap="round" />
         {/* Patilla derecha */}
-        <line x1="20.6" y1="17.2" x2="21.5" y2="17" strokeLinecap="round" />
+        <line x1="20.1" y1="17.55" x2="21" y2="17.4" strokeLinecap="round" />
       </g>
 
       {/* Ojos que parpadean */}
@@ -62,15 +69,15 @@ export function EmilyAvatar({ className = "w-full h-full" }: { className?: strin
         }}
         style={{ transformOrigin: "center", transformBox: "fill-box" } as React.CSSProperties}
       >
-        <circle cx="13.5" cy="17.2" r="0.65" fill="#0A0A0B" />
-        <circle cx="18.5" cy="17.2" r="0.65" fill="#0A0A0B" />
+        <circle cx="13.8" cy="17.6" r="0.72" fill="#0A0A0B" />
+        <circle cx="18.2" cy="17.6" r="0.72" fill="#0A0A0B" />
       </motion.g>
 
-      {/* Sonrisa sutil */}
+      {/* Sonrisa sutil — friendly */}
       <path
-        d="M14 21.4 Q16 22.5 18 21.4"
+        d="M14.3 21.2 Q16 22.2 17.7 21.2"
         stroke="#0A0A0B"
-        strokeWidth="0.75"
+        strokeWidth="0.7"
         strokeLinecap="round"
         fill="none"
       />
