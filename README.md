@@ -1,11 +1,17 @@
+![TriageMail · Emily — AI Mail Triage Agent](./public/og-thumbnail.png)
+
 # TriageMail · Emily
 
 > **AI Mail Triage Agent** para ejecutivos en cooperación internacional, fundaciones ambientales y redes inter-institucionales que quieren descansar el correo el fin de semana.
+>
+> *"Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola."*
 
-[![Vercel](https://img.shields.io/badge/deploy-Vercel-000?logo=vercel&logoColor=white)](https://v0-triagemail-saas-o4b4dxq0l-amauryamed-1073s-projects.vercel.app)
-[![Hackathon](https://img.shields.io/badge/Vercel-Zero%20to%20Agent-7C7AED)](https://community.vercel.com/hackathons/zero-to-agent)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-000)](https://v0.app)
-[![Hashtag](https://img.shields.io/badge/%23ZeroToAgent-LinkedIn%20%2F%20X-1DA1F2)](https://x.com/search?q=%23ZeroToAgent)
+[**🌐 Demo en vivo →**](https://v0-triagemail-saas.vercel.app) · [**🗳 Vota en el showcase →**](https://community.vercel.com/hackathons/zero-to-agent/showcase) · [**🤖 MCP server →**](https://v0-triagemail-saas.vercel.app/api/mcp/mcp)
+
+[![Live](https://img.shields.io/badge/Live-v0--triagemail--saas.vercel.app-7C7AED?logo=vercel&logoColor=white)](https://v0-triagemail-saas.vercel.app)
+[![Hackathon](https://img.shields.io/badge/Vercel-Zero%20to%20Agent%20%C2%B7%20Track%202-000)](https://community.vercel.com/hackathons/zero-to-agent)
+[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-000?logo=v0)](https://v0.app)
+[![Hashtag](https://img.shields.io/badge/%23ZeroToAgent-X%20%2F%20LinkedIn-1DA1F2)](https://x.com/search?q=%23ZeroToAgent)
 [![Star this repo](https://img.shields.io/github/stars/amauryamed-svg/v0-triagemail-saas?style=social)](https://github.com/amauryamed-svg/v0-triagemail-saas/stargazers)
 
 ---
