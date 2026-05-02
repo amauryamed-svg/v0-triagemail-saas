@@ -67,7 +67,7 @@ const settingsSections: { title: string; items: SettingsItem[] }[] = [
       {
         icon: Globe,
         title: "Resumen diario",
-        description: "Email con resumen de actividad del agente",
+        description: "Email con resumen de actividad de Emily",
         toggle: true,
         defaultValue: true,
       },

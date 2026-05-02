@@ -200,7 +200,7 @@ export default function OnboardingPage() {
                 <div className="text-center">
                   <CardTitle className="text-xl mb-2">Multi-trigger de prioridad</CardTitle>
                   <CardDescription className="text-muted-foreground">
-                    Cuando un contacto te escriba por múltiples canales <strong className="text-foreground">+</strong> email, el agente lo escalará como urgente.
+                    Cuando un contacto te escriba por múltiples canales <strong className="text-foreground">+</strong> email, Emily lo escalará como urgente.
                   </CardDescription>
                 </div>
 
@@ -276,7 +276,7 @@ export default function OnboardingPage() {
                 <div className="text-center">
                   <CardTitle className="text-xl mb-2">Clona tu voz en 15 segundos</CardTitle>
                   <CardDescription className="text-muted-foreground">
-                    Lee en voz alta: &quot;Hola, soy [tu nombre]. Estoy descansando este fin de semana, pero mi agente te responderá puntualmente.&quot;
+                    Lee en voz alta: &quot;Hola, soy [tu nombre]. Estoy descansando este fin de semana — te respondo puntualmente el lunes.&quot;
                   </CardDescription>
                 </div>
 

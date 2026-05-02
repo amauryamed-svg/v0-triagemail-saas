@@ -117,7 +117,7 @@ export default function DashboardPage() {
           Buenos días, Amaury
         </h1>
         <p className="text-muted-foreground">
-          Tu agente revisó 47 correos esta noche. 3 necesitan tu atención.
+          Emily revisó 47 correos esta noche. 3 necesitan tu atención.
         </p>
       </div>
 

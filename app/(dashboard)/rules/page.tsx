@@ -92,7 +92,7 @@ export default function RulesPage() {
           Cuándo escalar un correo
         </h1>
         <p className="text-muted-foreground">
-          Configura las reglas que determinan cuándo el agente te notifica de inmediato.
+          Configura las reglas que determinan cuándo Emily te notifica de inmediato.
         </p>
       </div>
 

@@ -4,20 +4,25 @@
  * Extiende `lib/emily-heuristics.ts` con la dimensión TIEMPO.
  *
  * Dos voces, no las mezcles:
- *   - EMILY (inbound): la asesora dentro de la app. Habla al usuario en la UI,
- *     en briefings, razonamiento y microcopy. Personalidad fusión Emily Charlton
- *     (Devil Wears Prada) + arco Betty la fea. Esta heurística está escrita en
- *     SU voz — todo lo que ves en `emilyRationale` y `emilyDefense` es Emily.
+ *   - EMILY (inbound): la asistente dentro de la app — producto "Emily — Triage
+ *     Mail Agentic". Habla al usuario en briefings, razonamiento y microcopy.
+ *     Personalidad fusión: standards de Emily Charlton (Devil Wears Prada) +
+ *     resourcefulness de Andy Sachs (la que consiguió el manuscrito inédito de
+ *     Harry Potter para los gemelos, la que gestiona fines de semana enteros
+ *     sin que se note, mentalidad de reportera del Times implacable en
+ *     "buscar hasta encontrar") + arco Betty la fea. Esta heurística está
+ *     escrita en SU voz — todo lo que ves en `emilyRationale` y `emilyDefense`
+ *     es Emily.
  *
  *   - CLON DEL USUARIO (outbound): feature técnico — ElevenLabs Instant Voice
- *     Clone con muestra de 15s. Se usa cuando el agente envía algo HACIA AFUERA
+ *     Clone con muestra de 15s. Se usa cuando Emily envía algo HACIA AFUERA
  *     (drafts en automode + voice notes). El destinatario escucha al usuario,
  *     no a Emily. Cuerpo del draft = primera persona del usuario, sin mencionar
  *     a Emily ni al agente.
  *
  * Esta heurística NO toma decisiones por el usuario. Emily las prepara, las
- * protege y las explica con honestidad. El usuario aprueba — y cuando aprueba,
- * sale en SU voz, no en la de Emily.
+ * protege, busca hasta encontrar la opción correcta, y las explica con
+ * honestidad. El usuario aprueba — y cuando aprueba, sale en SU voz.
  */
 
 import type { HeuristicRule, TimeScale, EisenhowerQuadrant } from "./emily-heuristics"

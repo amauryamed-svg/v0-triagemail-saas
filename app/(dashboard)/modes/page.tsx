@@ -48,7 +48,7 @@ export default function ModesPage() {
           Selecciona tu modo
         </h1>
         <p className="text-muted-foreground">
-          Elige cómo quieres que tu agente procese los correos entrantes.
+          Elige cómo quieres que Emily procese los correos entrantes.
         </p>
       </div>
 
