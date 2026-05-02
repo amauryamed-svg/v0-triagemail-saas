@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Calendar, MessageCircle, Instagram, Mail, Sparkles } from "lucide-react"
+import { Calendar, MessageCircle, Instagram, Mail, Sparkles, PhoneCall } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { SyncActionsSheet } from "@/components/triagemail/sync-actions-sheet"
 import { cn } from "@/lib/utils"
 
 const DEMO_USER_EMAIL =
@@ -65,6 +66,7 @@ export default function ContactsPage() {
   const [contacts, setContacts] = useState<Contact[]>([])
   const [totals, setTotals] = useState<Record<string, number>>({})
   const [loading, setLoading] = useState(true)
+  const [syncContact, setSyncContact] = useState<Contact | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -266,12 +268,21 @@ export default function ContactsPage() {
                   )}
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 pt-2">
+                  <div className="flex items-center gap-2 pt-2 flex-wrap">
+                    <Button
+                      onClick={() => setSyncContact(contact)}
+                      size="sm"
+                      className="h-7 text-xs bg-brand/15 hover:bg-brand/25 text-brand border border-brand/30 gap-1"
+                    >
+                      <Sparkles className="w-3 h-3" />
+                      Acciones sync · Emily
+                    </Button>
                     <Button variant="ghost" size="sm" className="h-7 text-xs">
                       <Calendar className="w-3 h-3 mr-1" />
                       Bloquear próximo touchpoint
                     </Button>
                     <Button variant="ghost" size="sm" className="h-7 text-xs">
+                      <PhoneCall className="w-3 h-3 mr-1" />
                       Ver historial
                     </Button>
                   </div>
@@ -281,6 +292,15 @@ export default function ContactsPage() {
           ))
         )}
       </div>
+
+      {/* Sync Actions Sheet — Reunión + OnCall en voz clonada */}
+      <SyncActionsSheet
+        open={syncContact !== null}
+        onOpenChange={(v) => {
+          if (!v) setSyncContact(null)
+        }}
+        contact={syncContact}
+      />
     </div>
   )
 }
