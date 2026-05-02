@@ -18,6 +18,7 @@ const mockEmails: Email[] = [
     importance: 5,
     hasDraft: true,
     crossPlatformPushes: 2,
+    whatsappDoubleTrigger: true,
   },
   {
     id: "2",

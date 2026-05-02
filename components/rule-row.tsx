@@ -1,7 +1,9 @@
 "use client"
 
 import { ReactNode } from "react"
+import { Zap } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
+import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
 interface RuleRowProps {
@@ -12,6 +14,7 @@ interface RuleRowProps {
   stat?: string
   children?: ReactNode
   className?: string
+  isPriority?: boolean
 }
 
 export function RuleRow({
@@ -22,6 +25,7 @@ export function RuleRow({
   stat,
   children,
   className,
+  isPriority,
 }: RuleRowProps) {
   return (
     <div
@@ -35,6 +39,12 @@ export function RuleRow({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 mb-1">
             <h3 className="font-medium text-foreground">{title}</h3>
+            {isPriority && (
+              <Badge className="bg-urgent/10 text-urgent border-urgent/20 gap-1">
+                <Zap className="w-3 h-3" />
+                Prioridad
+              </Badge>
+            )}
             {stat && (
               <span className="text-xs text-muted-foreground bg-white/[0.04] px-2 py-0.5 rounded">
                 {stat}

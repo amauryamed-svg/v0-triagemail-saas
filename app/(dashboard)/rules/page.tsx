@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Plus, X } from "lucide-react"
+import { Plus, X, MessageCircle, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -16,16 +16,19 @@ interface Rule {
   description?: string
   isEnabled: boolean
   stat: string
-  type: "push" | "deadline" | "attachment" | "sender"
+  type: "whatsapp" | "deadline" | "attachment" | "sender"
+  isPriority?: boolean
 }
 
 const initialRules: Rule[] = [
   {
     id: "cross-platform",
-    title: "Mismo contacto me escribe en WhatsApp + Mail",
+    title: "Doble trigger: WhatsApp + Email",
+    description: "Escala automáticamente cuando un contacto te escribe por ambos canales",
     isEnabled: true,
     stat: "disparada 8 veces este mes",
-    type: "push",
+    type: "whatsapp",
+    isPriority: true,
   },
   {
     id: "deadline",
@@ -104,22 +107,40 @@ export default function RulesPage() {
           >
             <RuleRow
               title={rule.title}
+              description={rule.description}
               isEnabled={rule.isEnabled}
               onToggle={(enabled) => toggleRule(rule.id, enabled)}
               stat={rule.stat}
+              isPriority={rule.isPriority}
             >
-              {/* Cross-platform push settings */}
-              {rule.type === "push" && (
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground">Umbral de pushes:</span>
-                  <Input
-                    type="number"
-                    value={pushThreshold}
-                    onChange={(e) => setPushThreshold(e.target.value)}
-                    className="w-20 h-9 bg-white/[0.02] border-white/[0.06]"
-                    min={1}
-                    max={10}
-                  />
+              {/* WhatsApp double trigger settings */}
+              {rule.type === "whatsapp" && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-[#25D366]/5 border border-[#25D366]/20">
+                    <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                    <div className="flex-1">
+                      <p className="text-sm text-foreground">WhatsApp conectado</p>
+                      <p className="text-xs text-muted-foreground">+52 55 1234 5678</p>
+                    </div>
+                    <Zap className="w-4 h-4 text-urgent" />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm text-muted-foreground">Ventana de coincidencia:</span>
+                    <Select defaultValue="30min">
+                      <SelectTrigger className="w-32 bg-white/[0.02] border-white/[0.06]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="15min">15 minutos</SelectItem>
+                        <SelectItem value="30min">30 minutos</SelectItem>
+                        <SelectItem value="1h">1 hora</SelectItem>
+                        <SelectItem value="2h">2 horas</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Si el mismo contacto te escribe por WhatsApp y email dentro de esta ventana, se escala como urgente.
+                  </p>
                 </div>
               )}
 

@@ -3,18 +3,20 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
-import { Eye, Pen, Mic, Check } from "lucide-react"
+import { Eye, Pen, Mic, Check, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { VoiceRecorder } from "@/components/voice-recorder"
 import { ModeCard } from "@/components/mode-card"
+import { WhatsAppConnector } from "@/components/whatsapp-connector"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 
 const steps = [
-  { id: 1, title: "Conecta" },
-  { id: 2, title: "Voz" },
-  { id: 3, title: "Modo" },
+  { id: 1, title: "Gmail" },
+  { id: 2, title: "WhatsApp" },
+  { id: 3, title: "Voz" },
+  { id: 4, title: "Modo" },
 ]
 
 const modes = [
@@ -57,9 +59,18 @@ export default function OnboardingPage() {
     setCurrentStep(2)
   }
 
+  const handleWhatsAppComplete = () => {
+    toast("Listo. WhatsApp vinculado para alertas.")
+    setCurrentStep(3)
+  }
+
+  const handleWhatsAppSkip = () => {
+    setCurrentStep(3)
+  }
+
   const handleVoiceComplete = () => {
     toast("Listo. Voz guardada.")
-    setCurrentStep(3)
+    setCurrentStep(4)
   }
 
   const handleModeSelect = (modeId: string) => {
@@ -160,10 +171,34 @@ export default function OnboardingPage() {
               </motion.div>
             )}
 
-            {/* Step 2: Voice Clone */}
+            {/* Step 2: WhatsApp Connection */}
             {currentStep === 2 && (
               <motion.div
                 key="step-2"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.2 }}
+                className="space-y-6"
+              >
+                <div className="text-center">
+                  <CardTitle className="text-xl mb-2">Doble trigger de prioridad</CardTitle>
+                  <CardDescription className="text-muted-foreground">
+                    Cuando un contacto te escriba por WhatsApp <strong className="text-foreground">y</strong> email, el agente lo escalará como urgente.
+                  </CardDescription>
+                </div>
+
+                <WhatsAppConnector 
+                  onComplete={handleWhatsAppComplete}
+                  onSkip={handleWhatsAppSkip}
+                />
+              </motion.div>
+            )}
+
+            {/* Step 3: Voice Clone */}
+            {currentStep === 3 && (
+              <motion.div
+                key="step-3"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -181,8 +216,8 @@ export default function OnboardingPage() {
               </motion.div>
             )}
 
-            {/* Step 3: Mode Selection */}
-            {currentStep === 3 && (
+            {/* Step 4: Mode Selection */}
+            {currentStep === 4 && (
               <motion.div
                 key="step-3"
                 initial={{ opacity: 0, x: 20 }}

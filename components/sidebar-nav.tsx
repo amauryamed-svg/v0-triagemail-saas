@@ -124,11 +124,16 @@ export function SidebarNav() {
                 className="flex-1 min-w-0"
               >
                 <p className="text-sm font-medium text-foreground truncate">Amaury</p>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-calm" />
-                  <span className="text-xs text-muted-foreground truncate">
-                    Agente activo · Sábado
-                  </span>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-calm" />
+                    <span className="text-xs text-muted-foreground">Activo</span>
+                  </div>
+                  <span className="text-muted-foreground/30">·</span>
+                  <div className="flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#25D366]" />
+                    <span className="text-xs text-muted-foreground">WA</span>
+                  </div>
                 </div>
               </motion.div>
             )}

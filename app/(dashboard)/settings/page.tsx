@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Mail, Mic, Shield, Bell, Globe } from "lucide-react"
+import { Mail, Mic, Shield, Bell, Globe, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
@@ -16,6 +16,14 @@ const settingsSections = [
         description: "amaury@company.com",
         status: "connected",
         action: "Desconectar",
+      },
+      {
+        icon: MessageCircle,
+        title: "WhatsApp",
+        description: "+52 55 1234 5678",
+        status: "connected",
+        action: "Cambiar",
+        color: "#25D366",
       },
       {
         icon: Mic,
@@ -94,10 +102,13 @@ export default function SettingsPage() {
                   "hover:bg-white/[0.02] transition-colors"
                 )}
               >
-                <div className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
-                  item.status === "connected" ? "bg-calm/10 text-calm" : "bg-white/[0.04] text-muted-foreground"
-                )}>
+                <div 
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                  style={{
+                    backgroundColor: item.color ? `${item.color}15` : (item.status === "connected" ? "rgba(34, 197, 94, 0.1)" : "rgba(255,255,255,0.04)"),
+                    color: item.color || (item.status === "connected" ? "rgb(34, 197, 94)" : "rgb(161, 161, 170)")
+                  }}
+                >
                   <item.icon className="w-5 h-5" />
                 </div>
                 

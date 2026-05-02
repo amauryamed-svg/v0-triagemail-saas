@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Eye, Check, Clock, MessageCircle } from "lucide-react"
+import { Eye, Check, Clock, MessageCircle, Zap } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { UrgencyBadge } from "./urgency-badge"
@@ -21,6 +21,7 @@ export interface Email {
   importance: 1 | 2 | 3 | 4 | 5
   hasDraft?: boolean
   crossPlatformPushes?: number
+  whatsappDoubleTrigger?: boolean
 }
 
 interface EmailCardProps {
@@ -84,7 +85,15 @@ export function EmailCard({ email, className }: EmailCardProps) {
           <ImportanceBadge level={email.importance} />
         </div>
         
-        {email.crossPlatformPushes && email.crossPlatformPushes > 0 && (
+        {email.whatsappDoubleTrigger && (
+          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#25D366]/10 border border-[#25D366]/20">
+            <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+            <Zap className="w-3 h-3 text-urgent" />
+            <span className="text-xs text-[#25D366] font-medium">Doble trigger</span>
+          </div>
+        )}
+        
+        {email.crossPlatformPushes && email.crossPlatformPushes > 0 && !email.whatsappDoubleTrigger && (
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <MessageCircle className="w-3.5 h-3.5" />
             <span>·{email.crossPlatformPushes}</span>
