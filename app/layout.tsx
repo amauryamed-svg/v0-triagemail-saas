@@ -10,8 +10,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'TriageMail — Desconéctate del correo',
-  description: 'Tu agente de email inteligente que te permite desconectarte los fines de semana.',
+  title: 'TriageMail — AI Mail Triage Agent',
+  description: 'TriageMail con Emily, tu asistente. Tría tu inbox, prepara borradores en tu voz y te devuelve el fin de semana.',
   generator: 'v0.app',
 }
 

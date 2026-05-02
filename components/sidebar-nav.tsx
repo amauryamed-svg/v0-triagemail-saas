@@ -4,21 +4,24 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { 
-  Inbox, 
-  FileEdit, 
-  Layers, 
-  Settings, 
+import {
+  Inbox,
+  FileEdit,
+  Layers,
+  Settings,
+  Users,
   ChevronLeft,
   ChevronRight,
   Filter
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { EmilyAvatar } from "@/components/triagemail/emily-avatar"
 import { cn } from "@/lib/utils"
 
 const navItems = [
   { href: "/dashboard", label: "Bandeja", icon: Inbox },
   { href: "/drafts", label: "Borradores", icon: FileEdit },
+  { href: "/contacts", label: "Contactos", icon: Users },
   { href: "/modes", label: "Modos", icon: Layers },
   { href: "/rules", label: "Reglas", icon: Filter },
   { href: "/settings", label: "Ajustes", icon: Settings },
@@ -38,20 +41,21 @@ export function SidebarNav() {
       {/* Logo */}
       <div className="flex items-center h-16 px-4 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
-            <span className="text-sm font-semibold text-white">T</span>
+          <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center overflow-hidden p-0.5">
+            <EmilyAvatar />
           </div>
           <AnimatePresence>
             {isExpanded && (
-              <motion.span
+              <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.15 }}
-                className="font-semibold text-foreground"
+                className="flex flex-col leading-none"
               >
-                TriageMail
-              </motion.span>
+                <span className="font-semibold text-foreground tracking-wide">EMILY</span>
+                <span className="text-[10px] text-muted-foreground mt-0.5">Ai mail triage agent</span>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>
