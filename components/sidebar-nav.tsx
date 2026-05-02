@@ -43,15 +43,16 @@ export function SidebarNav() {
           </div>
           <AnimatePresence>
             {isExpanded && (
-              <motion.span
+              <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.15 }}
-                className="font-semibold text-foreground"
+                className="flex flex-col leading-none"
               >
-                TriageMail
-              </motion.span>
+                <span className="font-semibold text-foreground">TriageMail</span>
+                <span className="text-[10px] text-muted-foreground mt-0.5">by Emily</span>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>
