@@ -14,6 +14,7 @@ import {
   Filter
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { EmilyAvatar } from "@/components/triagemail/emily-avatar"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -38,8 +39,8 @@ export function SidebarNav() {
       {/* Logo */}
       <div className="flex items-center h-16 px-4 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
-            <span className="text-sm font-semibold text-white">T</span>
+          <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center overflow-hidden p-0.5">
+            <EmilyAvatar />
           </div>
           <AnimatePresence>
             {isExpanded && (
@@ -50,8 +51,8 @@ export function SidebarNav() {
                 transition={{ duration: 0.15 }}
                 className="flex flex-col leading-none"
               >
-                <span className="font-semibold text-foreground">TriageMail</span>
-                <span className="text-[10px] text-muted-foreground mt-0.5">by Emily</span>
+                <span className="font-semibold text-foreground tracking-wide">EMILY</span>
+                <span className="text-[10px] text-muted-foreground mt-0.5">Ai mail triage agent</span>
               </motion.div>
             )}
           </AnimatePresence>
