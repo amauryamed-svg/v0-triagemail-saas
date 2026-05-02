@@ -130,7 +130,7 @@ export default function OnboardingPage() {
               Hola, soy Emily.
             </h1>
             <p className="text-muted-foreground leading-relaxed text-base">
-              Sé lo que pesa abrir el correo un lunes a las 7am con doscientos mensajes esperando.
+              Entiendo lo que pesa abrir el correo un lunes a las 7am con doscientos mensajes esperando.
               Yo me lo llevo el sábado, pongo orden, y te dejo solo lo que importa.
               <br />
               <span className="text-foreground/85 font-medium">
