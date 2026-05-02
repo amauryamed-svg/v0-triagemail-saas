@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Plus, X, MessageCircle, Zap } from "lucide-react"
+import { Plus, X, MessageCircle, Zap, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -16,18 +16,18 @@ interface Rule {
   description?: string
   isEnabled: boolean
   stat: string
-  type: "whatsapp" | "deadline" | "attachment" | "sender"
+  type: "multichannel" | "deadline" | "attachment" | "sender"
   isPriority?: boolean
 }
 
 const initialRules: Rule[] = [
   {
     id: "cross-platform",
-    title: "Doble trigger: WhatsApp + Email",
-    description: "Escala automáticamente cuando un contacto te escribe por ambos canales",
+    title: "Multi-trigger: WhatsApp + Instagram + Email",
+    description: "Escala automáticamente cuando un contacto te escribe por múltiples canales",
     isEnabled: true,
-    stat: "disparada 8 veces este mes",
-    type: "whatsapp",
+    stat: "disparada 12 veces este mes",
+    type: "multichannel",
     isPriority: true,
   },
   {
@@ -113,17 +113,27 @@ export default function RulesPage() {
               stat={rule.stat}
               isPriority={rule.isPriority}
             >
-              {/* WhatsApp double trigger settings */}
-              {rule.type === "whatsapp" && (
+              {/* Multi-channel trigger settings */}
+              {rule.type === "multichannel" && (
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-[#25D366]/5 border border-[#25D366]/20">
-                    <MessageCircle className="w-5 h-5 text-[#25D366]" />
-                    <div className="flex-1">
-                      <p className="text-sm text-foreground">WhatsApp conectado</p>
-                      <p className="text-xs text-muted-foreground">+52 55 1234 5678</p>
+                  {/* Connected channels */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-[#25D366]/5 border border-[#25D366]/20">
+                      <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-foreground">WhatsApp</p>
+                        <p className="text-xs text-muted-foreground truncate">+52 55 1234 5678</p>
+                      </div>
                     </div>
-                    <Zap className="w-4 h-4 text-urgent" />
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#833AB4]/5 via-[#FD1D1D]/5 to-[#F77737]/5 border border-[#E1306C]/20">
+                      <Instagram className="w-5 h-5 text-[#E1306C]" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-foreground">Instagram</p>
+                        <p className="text-xs text-muted-foreground truncate">@amaury_ceo</p>
+                      </div>
+                    </div>
                   </div>
+                  
                   <div className="flex items-center gap-3">
                     <span className="text-sm text-muted-foreground">Ventana de coincidencia:</span>
                     <Select defaultValue="30min">
@@ -138,9 +148,13 @@ export default function RulesPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    Si el mismo contacto te escribe por WhatsApp y email dentro de esta ventana, se escala como urgente.
-                  </p>
+                  
+                  <div className="flex items-center gap-2 p-2 rounded-lg bg-urgent/5 border border-urgent/20">
+                    <Zap className="w-4 h-4 text-urgent shrink-0" />
+                    <p className="text-xs text-muted-foreground">
+                      Si el mismo contacto te escribe por WhatsApp, Instagram o ambos <strong className="text-foreground">+</strong> email dentro de esta ventana, se escala como urgente.
+                    </p>
+                  </div>
                 </div>
               )}
 

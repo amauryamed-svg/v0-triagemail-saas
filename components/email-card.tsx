@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Eye, Check, Clock, MessageCircle, Zap } from "lucide-react"
+import { Eye, Check, Clock, MessageCircle, Zap, Instagram } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { UrgencyBadge } from "./urgency-badge"
@@ -22,6 +22,8 @@ export interface Email {
   hasDraft?: boolean
   crossPlatformPushes?: number
   whatsappDoubleTrigger?: boolean
+  instagramDoubleTrigger?: boolean
+  multiChannelTrigger?: boolean
 }
 
 interface EmailCardProps {
@@ -85,15 +87,35 @@ export function EmailCard({ email, className }: EmailCardProps) {
           <ImportanceBadge level={email.importance} />
         </div>
         
-        {email.whatsappDoubleTrigger && (
+        {/* Multi-channel trigger badge */}
+        {email.multiChannelTrigger && (
+          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-urgent/10 border border-urgent/20">
+            <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+            <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
+            <Zap className="w-3 h-3 text-urgent" />
+            <span className="text-xs text-urgent font-medium">Multi-trigger</span>
+          </div>
+        )}
+
+        {/* WhatsApp only trigger */}
+        {email.whatsappDoubleTrigger && !email.multiChannelTrigger && (
           <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#25D366]/10 border border-[#25D366]/20">
             <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
             <Zap className="w-3 h-3 text-urgent" />
-            <span className="text-xs text-[#25D366] font-medium">Doble trigger</span>
+            <span className="text-xs text-[#25D366] font-medium">WA + Email</span>
+          </div>
+        )}
+
+        {/* Instagram only trigger */}
+        {email.instagramDoubleTrigger && !email.multiChannelTrigger && (
+          <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#E1306C]/10 border border-[#E1306C]/20">
+            <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
+            <Zap className="w-3 h-3 text-urgent" />
+            <span className="text-xs text-[#E1306C] font-medium">IG + Email</span>
           </div>
         )}
         
-        {email.crossPlatformPushes && email.crossPlatformPushes > 0 && !email.whatsappDoubleTrigger && (
+        {email.crossPlatformPushes && email.crossPlatformPushes > 0 && !email.whatsappDoubleTrigger && !email.instagramDoubleTrigger && !email.multiChannelTrigger && (
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <MessageCircle className="w-3.5 h-3.5" />
             <span>·{email.crossPlatformPushes}</span>

@@ -134,6 +134,11 @@ export function SidebarNav() {
                     <span className="w-1.5 h-1.5 rounded-full bg-[#25D366]" />
                     <span className="text-xs text-muted-foreground">WA</span>
                   </div>
+                  <span className="text-muted-foreground/30">·</span>
+                  <div className="flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E1306C]" />
+                    <span className="text-xs text-muted-foreground">IG</span>
+                  </div>
                 </div>
               </motion.div>
             )}

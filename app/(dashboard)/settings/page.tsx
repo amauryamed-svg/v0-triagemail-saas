@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Mail, Mic, Shield, Bell, Globe, MessageCircle } from "lucide-react"
+import { Mail, Mic, Shield, Bell, Globe, MessageCircle, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
@@ -24,6 +24,14 @@ const settingsSections = [
         status: "connected",
         action: "Cambiar",
         color: "#25D366",
+      },
+      {
+        icon: Instagram,
+        title: "Instagram",
+        description: "@amaury_ceo",
+        status: "connected",
+        action: "Cambiar",
+        gradient: "linear-gradient(135deg, #833AB4, #FD1D1D, #F77737)",
       },
       {
         icon: Mic,
@@ -105,8 +113,8 @@ export default function SettingsPage() {
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                   style={{
-                    backgroundColor: item.color ? `${item.color}15` : (item.status === "connected" ? "rgba(34, 197, 94, 0.1)" : "rgba(255,255,255,0.04)"),
-                    color: item.color || (item.status === "connected" ? "rgb(34, 197, 94)" : "rgb(161, 161, 170)")
+                    background: item.gradient || (item.color ? `${item.color}15` : (item.status === "connected" ? "rgba(34, 197, 94, 0.1)" : "rgba(255,255,255,0.04)")),
+                    color: item.gradient ? "#fff" : (item.color || (item.status === "connected" ? "rgb(34, 197, 94)" : "rgb(161, 161, 170)"))
                   }}
                 >
                   <item.icon className="w-5 h-5" />

@@ -17,8 +17,8 @@ const mockEmails: Email[] = [
     urgency: "urgent",
     importance: 5,
     hasDraft: true,
-    crossPlatformPushes: 2,
-    whatsappDoubleTrigger: true,
+    crossPlatformPushes: 3,
+    multiChannelTrigger: true,
   },
   {
     id: "2",
@@ -30,6 +30,7 @@ const mockEmails: Email[] = [
     urgency: "medium",
     importance: 4,
     hasDraft: true,
+    instagramDoubleTrigger: true,
   },
   {
     id: "3",
@@ -41,6 +42,7 @@ const mockEmails: Email[] = [
     urgency: "low",
     importance: 3,
     hasDraft: true,
+    whatsappDoubleTrigger: true,
   },
   {
     id: "4",

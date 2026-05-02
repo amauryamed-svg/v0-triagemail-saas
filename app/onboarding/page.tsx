@@ -3,18 +3,19 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
-import { Eye, Pen, Mic, Check, MessageCircle } from "lucide-react"
+import { Eye, Pen, Mic, Check, MessageCircle, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { VoiceRecorder } from "@/components/voice-recorder"
 import { ModeCard } from "@/components/mode-card"
 import { WhatsAppConnector } from "@/components/whatsapp-connector"
+import { InstagramConnector } from "@/components/instagram-connector"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 
 const steps = [
   { id: 1, title: "Gmail" },
-  { id: 2, title: "WhatsApp" },
+  { id: 2, title: "Canales" },
   { id: 3, title: "Voz" },
   { id: 4, title: "Modo" },
 ]
@@ -59,12 +60,27 @@ export default function OnboardingPage() {
     setCurrentStep(2)
   }
 
+  const [whatsappConnected, setWhatsappConnected] = useState(false)
+  const [instagramConnected, setInstagramConnected] = useState(false)
+  const [channelSubStep, setChannelSubStep] = useState<"whatsapp" | "instagram">("whatsapp")
+
   const handleWhatsAppComplete = () => {
-    toast("Listo. WhatsApp vinculado para alertas.")
-    setCurrentStep(3)
+    setWhatsappConnected(true)
+    toast("Listo. WhatsApp vinculado.")
+    setChannelSubStep("instagram")
   }
 
   const handleWhatsAppSkip = () => {
+    setChannelSubStep("instagram")
+  }
+
+  const handleInstagramComplete = () => {
+    setInstagramConnected(true)
+    toast("Listo. Instagram conectado.")
+    setCurrentStep(3)
+  }
+
+  const handleInstagramSkip = () => {
     setCurrentStep(3)
   }
 
@@ -171,7 +187,7 @@ export default function OnboardingPage() {
               </motion.div>
             )}
 
-            {/* Step 2: WhatsApp Connection */}
+            {/* Step 2: Multi-Channel Connection */}
             {currentStep === 2 && (
               <motion.div
                 key="step-2"
@@ -182,16 +198,68 @@ export default function OnboardingPage() {
                 className="space-y-6"
               >
                 <div className="text-center">
-                  <CardTitle className="text-xl mb-2">Doble trigger de prioridad</CardTitle>
+                  <CardTitle className="text-xl mb-2">Multi-trigger de prioridad</CardTitle>
                   <CardDescription className="text-muted-foreground">
-                    Cuando un contacto te escriba por WhatsApp <strong className="text-foreground">y</strong> email, el agente lo escalará como urgente.
+                    Cuando un contacto te escriba por múltiples canales <strong className="text-foreground">+</strong> email, el agente lo escalará como urgente.
                   </CardDescription>
                 </div>
 
-                <WhatsAppConnector 
-                  onComplete={handleWhatsAppComplete}
-                  onSkip={handleWhatsAppSkip}
-                />
+                {/* Channel progress indicator */}
+                <div className="flex items-center justify-center gap-3">
+                  <div className={cn(
+                    "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-colors",
+                    whatsappConnected 
+                      ? "bg-[#25D366]/10 text-[#25D366]" 
+                      : channelSubStep === "whatsapp"
+                        ? "bg-[#25D366]/5 text-[#25D366] border border-[#25D366]/30"
+                        : "bg-white/[0.04] text-muted-foreground"
+                  )}>
+                    {whatsappConnected && <Check className="w-3.5 h-3.5" />}
+                    <MessageCircle className="w-4 h-4" />
+                    <span>WhatsApp</span>
+                  </div>
+                  <div className={cn(
+                    "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-colors",
+                    instagramConnected 
+                      ? "bg-gradient-to-r from-[#833AB4]/10 via-[#FD1D1D]/10 to-[#F77737]/10 text-[#FD1D1D]" 
+                      : channelSubStep === "instagram"
+                        ? "bg-[#833AB4]/5 text-[#833AB4] border border-[#833AB4]/30"
+                        : "bg-white/[0.04] text-muted-foreground"
+                  )}>
+                    {instagramConnected && <Check className="w-3.5 h-3.5" />}
+                    <Instagram className="w-4 h-4" />
+                    <span>Instagram</span>
+                  </div>
+                </div>
+
+                <AnimatePresence mode="wait">
+                  {channelSubStep === "whatsapp" && (
+                    <motion.div
+                      key="whatsapp"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                    >
+                      <WhatsAppConnector 
+                        onComplete={handleWhatsAppComplete}
+                        onSkip={handleWhatsAppSkip}
+                      />
+                    </motion.div>
+                  )}
+                  {channelSubStep === "instagram" && (
+                    <motion.div
+                      key="instagram"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                    >
+                      <InstagramConnector 
+                        onComplete={handleInstagramComplete}
+                        onSkip={handleInstagramSkip}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )}
 
