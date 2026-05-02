@@ -4,10 +4,16 @@ import type { Database } from "./types"
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-// Fallback a anon key cuando no hay service role (demo / hackathon path).
-// RLS está disabled en este sprint, así que anon puede leer/escribir igual.
-const SUPABASE_SERVICE_ROLE_KEY =
-  process.env.SUPABASE_SERVICE_ROLE_KEY ?? SUPABASE_ANON_KEY
+// Fallback a anon key cuando no hay service role válido (demo / hackathon path).
+// Reconoce placeholders del .env.example y los trata como ausentes.
+function looksValidKey(k: string | undefined): boolean {
+  if (!k) return false
+  if (k.startsWith("PASTE_") || k.startsWith("PLEASE_") || k.includes("_HERE")) return false
+  return k.length > 20
+}
+const SUPABASE_SERVICE_ROLE_KEY = looksValidKey(process.env.SUPABASE_SERVICE_ROLE_KEY)
+  ? process.env.SUPABASE_SERVICE_ROLE_KEY!
+  : SUPABASE_ANON_KEY
 
 export function browserClient() {
   return createBrowserClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY)

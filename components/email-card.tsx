@@ -80,8 +80,8 @@ export function EmailCard({ email, className }: EmailCardProps) {
         </p>
       </div>
 
-      {/* Badges */}
-      <div className="flex flex-col items-end gap-2 shrink-0">
+      {/* Badges — se desvanecen al hover para que las acciones tomen su espacio */}
+      <div className="flex flex-col items-end gap-2 shrink-0 transition-opacity duration-150 group-hover:opacity-0 group-hover:pointer-events-none">
         <div className="flex items-center gap-2">
           <UrgencyBadge level={email.urgency} />
           <ImportanceBadge level={email.importance} />

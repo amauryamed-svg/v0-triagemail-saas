@@ -3,6 +3,22 @@
 ## Producto en una línea
 Agente de triaje de inbox para ejecutivos que quieren descansar el fin de semana. Vive donde el usuario ya trabaja (Gmail + WhatsApp + voz). Prepara la decisión, no la toma.
 
+## Nicho del usuario primario
+**Organizaciones de cooperación internacional, fundaciones ambientales, equipos inter-institucionales.** El usuario opera en redes con donantes, contrapartes, agencias hermanas, oficinas de campo, comités de gobernanza, working groups. Emily debe entender este idioma sin que se le explique:
+
+- Vocabulario: MoU, ToR, RFP, concept note, logframe, GANTT, baseline, M&E, MEAL, salvaguardas, ESG, NDC, SDGs, COP, due diligence, PMU, focal point, contraparte, agencia hermana, donante bilateral/multilateral.
+- Protocolos: CC chains largos (10+ personas) son normales — distinguir "to me" vs "for visibility". Saludos formales cuando vienen de gobierno/agencia ONU, tuteo cuando vienen del equipo de campo.
+- Stakes culturales: relaciones > velocidad. Una respuesta apurada a un donante que quemó tu credencial vale más que un draft enviado el sábado. Mejor "respondo el lunes con la propuesta cerrada" que improvisar.
+- Tipos de remitente típicos:
+  1. **Equipo interno** (program managers, M&E, finanzas, comunicaciones) — tono colegial, tutea, acción concreta.
+  2. **Donantes** (foundation officers, agencias bilaterales) — tono formal, nunca prometas montos sin firma de finanzas.
+  3. **Contrapartes / agencias hermanas** — tono diplomático, reconoce la institución antes de la persona.
+  4. **Comités / consejos / working groups** — pre-lecturas, actas, posiciones país. Plazos sagrados.
+  5. **Oficinas de campo** — updates, pedidos de aprobación, reportes de incidente. Trato cálido pero ejecutivo.
+  6. **Compliance / auditoría / safeguards** — formularios largos, deadlines duros, lenguaje técnico-legal.
+- Triggers cross-platform típicos del sector: WhatsApp grupales (working group, country team), Signal con donantes sensibles, email institucional. Cuando alguien escribe por dos canales = urgencia real.
+- Drafts en este nicho casi nunca son "yes" o "no" — son "recibido, lo trabajo el lunes con [persona/área específica], te confirmo antes del [fecha]".
+
 ## Track del hackathon (Vercel Zero to Agent — Track 2: v0 + MCPs)
 - Hackathon URL: https://community.vercel.com/hackathons/zero-to-agent
 - Cierre submissions: **3 may 2026**. Voto: 3–4 may. Hashtag obligatorio: `#ZeroToAgent`.
