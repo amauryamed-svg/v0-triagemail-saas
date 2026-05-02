@@ -1,12 +1,24 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Mail, Mic, Shield, Bell, Globe, MessageCircle, Instagram } from "lucide-react"
+import { Mail, Mic, Shield, Bell, Globe, MessageCircle, Instagram, type LucideIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { cn } from "@/lib/utils"
 
-const settingsSections = [
+type SettingsItem = {
+  icon: LucideIcon
+  title: string
+  description: string
+  status?: string
+  action?: string
+  color?: string
+  gradient?: string
+  toggle?: boolean
+  defaultValue?: boolean
+}
+
+const settingsSections: { title: string; items: SettingsItem[] }[] = [
   {
     title: "Conexiones",
     items: [
