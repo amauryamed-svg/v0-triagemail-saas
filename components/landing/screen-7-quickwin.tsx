@@ -74,14 +74,14 @@ export function Screen7QuickWin({ selected }: Props) {
           transition={{ delay: 0.1 }}
           className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.22em] text-brand mb-4"
         >
-          Tu turno · Quick win en 5 segundos
+          Vista previa · Respuestas de muestra
         </motion.p>
 
         <motion.h2
           initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="font-bold tracking-tight text-foreground leading-[0.95] mb-6 lg:mb-8"
+          className="font-bold tracking-tight text-foreground leading-[0.95] mb-4"
           style={{
             fontSize: "clamp(1.75rem, 4.5vw, 3.5rem)",
             letterSpacing: "-0.02em",
@@ -91,6 +91,16 @@ export function Screen7QuickWin({ selected }: Props) {
           <br />
           <span className="text-foreground/80">Emily te lo resume.</span>
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.3 }}
+          className="text-sm text-muted-foreground mb-6 lg:mb-8 max-w-2xl"
+        >
+          Esto es una <span className="text-foreground/85">muestra</span> con
+          respuestas pre-generadas para mantener viva la demo. Cuando conectas
+          tu Gmail, Emily responde en tiempo real con Claude Haiku 4.5.
+        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 14 }}
@@ -152,7 +162,7 @@ export function Screen7QuickWin({ selected }: Props) {
                   Emily · Resumen ≤150 chars
                   {result.cached && (
                     <span className="px-1.5 py-0.5 rounded bg-white/[0.06] text-muted-foreground text-[9px]">
-                      demo cache
+                      muestra
                     </span>
                   )}
                 </p>
@@ -162,7 +172,7 @@ export function Screen7QuickWin({ selected }: Props) {
                 <p className="text-[11px] text-muted-foreground mt-3">
                   {result.summary.length} caracteres ·{" "}
                   {(result.durationMs / 1000).toFixed(1)}s ·{" "}
-                  {result.cached ? "demo response" : "Claude Haiku 4.5"}
+                  {result.cached ? "respuesta de muestra" : "Claude Haiku 4.5"}
                 </p>
               </div>
             </motion.div>
