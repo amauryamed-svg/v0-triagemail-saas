@@ -18,7 +18,7 @@ export const maxDuration = 60
  *   {
  *     "mcpServers": {
  *       "triagemail": {
- *         "url": "https://v0-triagemail-saas.vercel.app/api/mcp/mcp"
+ *         "url": "https://try-emily.vercel.app/api/mcp/mcp"
  *       }
  *     }
  *   }

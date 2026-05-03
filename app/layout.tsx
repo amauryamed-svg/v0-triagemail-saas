@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://v0-triagemail-saas.vercel.app'),
+  metadataBase: new URL('https://try-emily.vercel.app'),
   title: 'TriageMail — AI-Powered Mail Triage Agent',
   description:
     'Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola. Construido para ejecutivos en cooperación internacional, fundaciones ambientales y redes inter-institucionales.',

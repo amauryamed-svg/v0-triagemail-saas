@@ -6,9 +6,9 @@
 >
 > *"Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola."*
 
-[**🌐 Demo en vivo →**](https://v0-triagemail-saas.vercel.app) · [**🗳 Vota en el showcase →**](https://community.vercel.com/hackathons/zero-to-agent/showcase) · [**🤖 MCP server →**](https://v0-triagemail-saas.vercel.app/api/mcp/mcp)
+[**🌐 Demo en vivo →**](https://try-emily.vercel.app) · [**🗳 Vota en el showcase →**](https://community.vercel.com/hackathons/zero-to-agent/showcase) · [**🤖 MCP server →**](https://try-emily.vercel.app/api/mcp/mcp)
 
-[![Live](https://img.shields.io/badge/Live-v0--triagemail--saas.vercel.app-7C7AED?logo=vercel&logoColor=white)](https://v0-triagemail-saas.vercel.app)
+[![Live](https://img.shields.io/badge/Live-try--emily.vercel.app-7C7AED?logo=vercel&logoColor=white)](https://try-emily.vercel.app)
 [![Hackathon](https://img.shields.io/badge/Vercel-Zero%20to%20Agent%20%C2%B7%20Track%202-000)](https://community.vercel.com/hackathons/zero-to-agent)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-000?logo=v0)](https://v0.app)
 [![Hashtag](https://img.shields.io/badge/%23ZeroToAgent-X%20%2F%20LinkedIn-1DA1F2)](https://x.com/search?q=%23ZeroToAgent)
