@@ -58,12 +58,15 @@ export async function POST(req: Request) {
       cached: false,
     })
   } catch (err) {
-    // Fallback gracioso si el modelo falla
+    // Fallback gracioso si el modelo falla — log para debug en Vercel logs
+    console.error("[quickwin] Anthropic call failed:", err instanceof Error ? err.message : String(err))
+    if (err instanceof Error && err.stack) console.error("[quickwin] stack:", err.stack)
     await new Promise((r) => setTimeout(r, 1500))
     return NextResponse.json({
       summary: cannedSummary(parsed.data.text),
       durationMs: Date.now() - start,
       cached: true,
+      debugError: err instanceof Error ? err.message : String(err),
     })
   }
 }
