@@ -11,19 +11,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://try-emily.vercel.app'),
-  title: 'TriageMail — AI-Powered Mail Triage Agent',
+  title: 'TriageMail — Gestora estratégica de comunicaciones internas',
   description:
-    'Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola. Construido para ejecutivos en cooperación internacional, fundaciones ambientales y redes inter-institucionales.',
+    'Buenos días, Miranda. Soy Emily: gestora estratégica de comunicaciones internas y traductora de lenguajes en cada nodo. Para consultores y equipos directivos que coordinan empresas en interinstitucionalidad. Tú apruebas. Yo nunca envío sola.',
   generator: 'v0.app',
   applicationName: 'TriageMail',
   keywords: [
     'AI agent', 'mail triage', 'Emily', 'Vercel hackathon', 'Zero to Agent',
-    'cooperación internacional', 'fundaciones', 'asistente ejecutiva',
+    'comunicaciones internas', 'interinstitucionalidad', 'consultoría organizacional',
+    'gestión estratégica', 'traducción cross-nodos', 'asistente ejecutiva',
   ],
   openGraph: {
-    title: 'TriageMail · Emily — AI-Powered Mail Triage Agent',
+    title: 'TriageMail · Emily — Gestora estratégica de comunicaciones internas',
     description:
-      'Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola.',
+      'Buenos días, Miranda. Soy Emily: gestora estratégica de comunicaciones internas y traductora de lenguajes en cada nodo. Tú apruebas. Yo nunca envío sola.',
     url: '/',
     siteName: 'TriageMail',
     locale: 'es_MX',
@@ -31,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TriageMail · Emily — AI-Powered Mail Triage Agent',
+    title: 'TriageMail · Emily — Gestora estratégica de comunicaciones internas',
     description:
-      'Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola.',
+      'Buenos días, Miranda. Soy Emily: traductora de lenguajes en cada nodo institucional. Tú apruebas. Yo nunca envío sola.',
     creator: '@v0byVercel',
   },
 }

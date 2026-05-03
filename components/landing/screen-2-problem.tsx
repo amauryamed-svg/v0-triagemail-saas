@@ -43,9 +43,9 @@ export function Screen2Problem() {
           className="mt-10 lg:mt-14 space-y-3 sm:space-y-4 text-muted-foreground leading-relaxed max-w-3xl"
           style={{ fontSize: "clamp(1.05rem, 2vw, 1.5rem)" }}
         >
-          <p>Donantes que querían respuesta el sábado.</p>
-          <p>Auditorías que vencen mañana.</p>
-          <p>Working groups con 30 personas en CC y nadie sabe quién decide.</p>
+          <p>Clientes que escriben en WhatsApp y email a la vez para el mismo deadline.</p>
+          <p>Comités multi-org con treinta personas en CC y nadie sabe quién decide.</p>
+          <p>Cinco lenguajes en el mismo hilo: legal, finanzas, operación, contraparte, board.</p>
         </motion.div>
 
         <motion.p
@@ -55,7 +55,7 @@ export function Screen2Problem() {
           className="mt-10 lg:mt-16 text-foreground/85 font-medium"
           style={{ fontSize: "clamp(1.25rem, 2.5vw, 2rem)" }}
         >
-          Y tu sábado pasado, ya te lo gastó la bandeja.
+          La interinstitucionalidad se gestiona en el inbox. Y el inbox te gasta el sábado.
         </motion.p>
 
         <motion.p
@@ -64,7 +64,7 @@ export function Screen2Problem() {
           transition={{ delay: 0.9 }}
           className="mt-8 italic text-muted-foreground/70 text-base sm:text-lg"
         >
-          Esto no es productividad. Es supervivencia.
+          Esto no es productividad. Es traducir, consolidar y proteger relaciones.
         </motion.p>
       </div>
     </section>

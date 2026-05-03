@@ -41,7 +41,7 @@ export function Screen1Hook() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="mb-8 lg:mb-12 flex flex-wrap items-center gap-2.5"
+          className="mb-6 lg:mb-8 flex flex-wrap items-center gap-2.5"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/85 backdrop-blur-sm">
             <span className="relative flex h-1.5 w-1.5">
@@ -51,12 +51,21 @@ export function Screen1Hook() {
             Live · TriageMail
           </span>
           <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">
-            AI-Powered Mail Triage Agent
+            Gestora estratégica de comunicaciones internas
           </span>
           <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             · Vercel Zero to Agent
           </span>
         </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-6 text-sm sm:text-base text-foreground/70 italic"
+        >
+          Buenos días, Miranda.
+        </motion.p>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

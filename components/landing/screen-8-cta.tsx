@@ -45,9 +45,9 @@ export function Screen8CTA() {
             letterSpacing: "-0.025em",
           }}
         >
-          Listo para estar al día
+          Listo para gestionar
           <br />
-          <span className="text-foreground/80">con las responsabilidades?</span>
+          <span className="text-foreground/80">la interinstitucionalidad sin gastar el sábado?</span>
         </motion.h2>
 
         <motion.p
@@ -56,7 +56,7 @@ export function Screen8CTA() {
           transition={{ delay: 0.3 }}
           className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
         >
-          Ya conoces a Emily. Conecta tu Gmail y devuélvete tu sábado.
+          Para consultores, equipos directivos y áreas de comms que coordinan empresas con clientes, contrapartes, comités y compliance. Conecta tu Gmail y deja que Emily traduzca cada nodo.
         </motion.p>
 
         <motion.div

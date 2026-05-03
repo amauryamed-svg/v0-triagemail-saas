@@ -1,10 +1,10 @@
-![TriageMail · Emily — AI-Powered Mail Triage Agent](./public/og-thumbnail.png)
+![TriageMail · Emily — Gestora estratégica de comunicaciones internas](./public/og-thumbnail.png)
 
 # TriageMail · Emily
 
-> **AI-Powered Mail Triage Agent** para ejecutivos en cooperación internacional, fundaciones ambientales y redes inter-institucionales que quieren descansar el correo el fin de semana.
+> **Gestora estratégica de comunicaciones internas + traductora de lenguajes en cada nodo institucional.** Para consultores organizacionales y equipos directivos que coordinan empresas haciendo interinstitucionalidad — clientes, contrapartes, comités, compliance, board.
 >
-> *"Hola, soy Emily. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola."*
+> *"Buenos días, Miranda. Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola."*
 
 [**🌐 Demo en vivo →**](https://try-emily.vercel.app) · [**🗳 Vota en el showcase →**](https://community.vercel.com/hackathons/zero-to-agent/showcase) · [**🤖 MCP server →**](https://try-emily.vercel.app/api/mcp/mcp)
 
@@ -16,17 +16,23 @@
 
 ---
 
-## 🌅 Ya no abras el correo el sábado
+## 🌅 La interinstitucionalidad se gestiona en el inbox
 
-> *"Entiendo lo que pesa abrir el correo un lunes a las 7am con doscientos mensajes esperando. Yo me lo llevo el sábado, pongo orden, y te dejo solo lo que importa. Tú apruebas. Yo nunca envío sola. Tres minutos para empezar."*
-> — **Emily**, asistente dentro de TriageMail
+> *"Buenos días, Miranda. Lo que tienes adelante son cinco lenguajes en el mismo hilo: legal, finanzas, operación, contraparte, board. Yo traduzco cada nodo, consolido la respuesta en el canal que sirve a la relación, y te dejo solo lo que importa. Tú apruebas. Yo nunca envío sola."*
+> — **Emily**, dentro de TriageMail
 
-TriageMail es una app construida con **v0** + **AI SDK 6** + **Claude (Haiku/Sonnet/Opus)** + **Supabase** + **ElevenLabs** que entrega tu fin de semana al fin de semana.
+TriageMail es una app construida con **v0** + **AI SDK 6** + **Claude (Haiku/Sonnet/Opus como Senior + Gemini/Copilot como Juniors vía MCP)** + **Supabase** + **ElevenLabs** para consultores organizacionales y equipos directivos que coordinan empresas con clientes, contrapartes, comités y compliance.
 
-Una asistente llamada **Emily** lee tu inbox, prioriza con heurísticas Eisenhower + planificación de tiempo + agenda como escudo, redacta los borradores en **tu voz clonada** (no en la suya — el destinatario lee al usuario), y nunca envía sin tu aprobación.
+**Emily** hace tres cosas que un cliente de correo plano no hace:
+
+1. **Traduce el lenguaje entre nodos** — el mismo mensaje calibrado al registro de donante, equipo interno, contraparte, comité o compliance, sin alterar la sustancia.
+2. **Gestiona comunicaciones internas con conciencia del workflow** — lee tags `/step` (financiera-presupuesto, contratos-bilaterales, salvaguardas) y ajusta voz al paso.
+3. **Lee las redes sociales como retroalimentadores de relevancia, no de urgencia** — el WhatsApp del cliente alimenta el dossier de relación, no el modo pánico.
+
+Y nunca envía sin tu aprobación. Tu voz clonada (ElevenLabs) firma los drafts; Emily solo prepara la decisión.
 
 > 🏆 Submission al **Vercel Zero to Agent Hackathon · Track 2 (v0 + MCPs)** — May 2026.
-> **Si te suma la idea, dale ⭐ al repo.** Eso ayuda a que más equipos en cooperación encuentren a Emily.
+> **Si te suma la idea, dale ⭐ al repo.** Eso ayuda a que más consultores y equipos directivos encuentren a Emily.
 
 ---
 
