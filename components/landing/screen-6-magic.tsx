@@ -10,25 +10,51 @@ const DURATION_MS = 30_000
 const SAMPLE_CARDS = [
   {
     id: 1,
-    sender: "Patricia · Bezos Earth Fund",
-    subject: "Renovación propuesta",
-    label: "CRÍTICO",
-    color: "rgb(229,72,77)",
+    sender: "Mariana · CFO Cliente Acme",
+    subject: "Renovación contrato Q2 — necesito cierre",
+    node: "Cliente",
+    emilyDid: "Tradujo a registro formal-numérico · cita marco MoU",
+    label: "BORRADOR LISTO",
+    color: "rgb(124,122,237)",
     icon: Pencil,
   },
   {
     id: 2,
-    sender: "Lucía · Field PM Yunguilla",
-    subject: "Reporte M&E Q1",
-    label: "BORRADOR",
+    sender: "Comité Directivo · Acta Q1",
+    subject: "Pre-lectura punto 6 antes del jueves 17h",
+    node: "Comité multi-org",
+    emilyDid: "Calibró posición país · agendó pre-lectura",
+    label: "BORRADOR LISTO",
     color: "rgb(124,122,237)",
     icon: Pencil,
   },
   {
     id: 3,
+    sender: "Patricia · Donante",
+    subject: "WhatsApp + email mismo día sobre desembolso",
+    node: "Donante",
+    emilyDid: "Verificó congruencia cross-canal · consolidó respuesta",
+    label: "ATENTO AQUÍ",
+    color: "rgb(229,72,77)",
+    icon: Check,
+  },
+  {
+    id: 4,
+    sender: "KPMG · Compliance",
+    subject: "Anexo 2 due diligence vence 20 may",
+    node: "Compliance",
+    emilyDid: "Marcó deadline duro · bloqueó 2h continuas",
+    label: "EN COLA",
+    color: "rgb(245,165,36)",
+    icon: Pencil,
+  },
+  {
+    id: 5,
     sender: "Devex Newsletter",
-    subject: "Top stories",
-    label: "ELIMINAR",
+    subject: "Top stories de la semana",
+    node: "Press",
+    emilyDid: "Newsletter sin respuesta requerida",
+    label: "ELIMINADO",
     color: "rgb(161,161,170)",
     icon: X,
   },
@@ -100,10 +126,13 @@ export function Screen6Magic() {
           </div>
         </div>
 
-        {/* Sample cards aparecen con stagger */}
+        {/* Sample cards — borradores procesados por Emily, con la acción
+            explícita ("Emily redactó / verificó / calibró ...") visible.
+            Cubren los nodos típicos del consultor en interinstitucionalidad:
+            cliente, comité multi-org, donante cross-canal, compliance, press. */}
         <div className="space-y-3">
           {SAMPLE_CARDS.map((card, i) => {
-            const showAt = (i + 1) * 0.25
+            const showAt = (i + 1) * (1 / SAMPLE_CARDS.length) * 0.95
             const visible = progress >= showAt * 100
             const Icon = card.icon
             return (
@@ -111,19 +140,28 @@ export function Screen6Magic() {
                 key={card.id}
                 animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.4 }}
-                className="flex items-center gap-4 p-4 rounded-xl border border-white/[0.06] bg-surface"
+                className="flex items-start gap-4 p-4 rounded-xl border border-white/[0.06] bg-surface"
               >
-                <div className="w-9 h-9 rounded-lg bg-white/[0.04] flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-lg bg-white/[0.04] flex items-center justify-center shrink-0 mt-0.5">
                   <Mail className="w-4 h-4 text-muted-foreground" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">
-                    {card.sender}
-                  </p>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <p className="text-sm font-medium text-foreground truncate">
+                      {card.sender}
+                    </p>
+                    <span className="text-[9px] uppercase tracking-wider text-muted-foreground/60 shrink-0">
+                      · {card.node}
+                    </span>
+                  </div>
                   <p className="text-xs text-muted-foreground truncate">{card.subject}</p>
+                  <p className="mt-1.5 text-[11px] text-brand/85 truncate flex items-center gap-1">
+                    <span className="text-brand/60">▸ Emily:</span>
+                    {card.emilyDid}
+                  </p>
                 </div>
                 <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wider shrink-0"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wider shrink-0 mt-0.5"
                   style={{
                     background: `${card.color}15`,
                     color: card.color,
