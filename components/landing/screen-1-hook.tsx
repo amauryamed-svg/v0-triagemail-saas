@@ -1,10 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, Play, X } from "lucide-react"
 import { EmilyAvatar } from "@/components/triagemail/emily-avatar"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 
 export function Screen1Hook() {
+  const [demoOpen, setDemoOpen] = useState(false)
+
   return (
     <section className="snap-start min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16">
       {/* Grid sutil */}
@@ -94,19 +98,35 @@ export function Screen1Hook() {
           transition={{ delay: 0.7 }}
           className="mt-8 lg:mt-12 flex flex-wrap items-center gap-x-5 gap-y-3"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand flex items-center justify-center p-1.5 shadow-lg shadow-brand/30">
-              <EmilyAvatar />
+          <button
+            type="button"
+            onClick={() => setDemoOpen(true)}
+            aria-label="Ver demo de Emily — 12 segundos"
+            className="group flex items-center gap-3 rounded-2xl outline-none transition focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <div className="relative">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand flex items-center justify-center p-1.5 shadow-lg shadow-brand/30 transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl group-hover:shadow-brand/40">
+                <EmilyAvatar />
+              </div>
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-1 -right-1 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-foreground text-background shadow-md ring-2 ring-background transition-transform duration-300 group-hover:scale-110"
+              >
+                <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current translate-x-[1px]" />
+              </span>
             </div>
-            <div className="flex flex-col leading-tight">
+            <div className="flex flex-col leading-tight text-left">
               <span className="text-xs uppercase tracking-wider text-muted-foreground">
                 Te lo firma
               </span>
               <span className="text-base sm:text-lg font-semibold text-foreground">
                 Emily — tu asistente
               </span>
+              <span className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-brand opacity-80 group-hover:opacity-100 transition">
+                ▸ Ver demo · 12s
+              </span>
             </div>
-          </div>
+          </button>
           <div className="hidden sm:block w-px h-10 bg-white/10" />
           <div className="flex flex-col leading-tight">
             <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
@@ -129,6 +149,37 @@ export function Screen1Hook() {
         <span className="text-[10px] uppercase tracking-widest">Scroll</span>
         <ChevronDown className="w-4 h-4" />
       </motion.div>
+
+      {/* Demo modal — abre al click sobre Emily */}
+      <Dialog open={demoOpen} onOpenChange={setDemoOpen}>
+        <DialogContent
+          showCloseButton={false}
+          className="!max-w-[min(95vw,1280px)] sm:!max-w-[min(95vw,1280px)] p-0 gap-0 border-white/10 bg-background/95 backdrop-blur-sm overflow-hidden"
+        >
+          <DialogTitle className="sr-only">Demo de Emily — 12 segundos</DialogTitle>
+          <div className="relative" style={{ aspectRatio: "16 / 9" }}>
+            <video
+              key={demoOpen ? "open" : "closed"}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/landing/demo-tour.mp4" type="video/mp4" />
+            </video>
+            <button
+              type="button"
+              onClick={() => setDemoOpen(false)}
+              aria-label="Cerrar demo"
+              className="absolute top-3 right-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition hover:bg-black/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }
