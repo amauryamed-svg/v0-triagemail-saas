@@ -33,14 +33,26 @@ export function Screen1Hook() {
       />
 
       <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-brand mb-8 lg:mb-12"
+          className="mb-8 lg:mb-12 flex flex-wrap items-center gap-2.5"
         >
-          TriageMail · AI-Powered Mail Triage Agent · Vercel Zero to Agent
-        </motion.p>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/85 backdrop-blur-sm">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            </span>
+            Live · TriageMail
+          </span>
+          <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">
+            AI-Powered Mail Triage Agent
+          </span>
+          <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            · Vercel Zero to Agent
+          </span>
+        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -54,7 +66,15 @@ export function Screen1Hook() {
         >
           Me llevo tu inbox
           <br />
-          <span className="text-foreground/85">los sábados.</span>
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(110deg, #FFFFFF 0%, #C9C7FF 45%, #7C7AED 100%)",
+            }}
+          >
+            los sábados.
+          </span>
         </motion.h1>
 
         <motion.p
@@ -72,17 +92,28 @@ export function Screen1Hook() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="mt-8 lg:mt-12 flex items-center gap-3"
+          className="mt-8 lg:mt-12 flex flex-wrap items-center gap-x-5 gap-y-3"
         >
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand flex items-center justify-center p-1.5 shadow-lg shadow-brand/30">
-            <EmilyAvatar />
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand flex items-center justify-center p-1.5 shadow-lg shadow-brand/30">
+              <EmilyAvatar />
+            </div>
+            <div className="flex flex-col leading-tight">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                Te lo firma
+              </span>
+              <span className="text-base sm:text-lg font-semibold text-foreground">
+                Emily — tu asistente
+              </span>
+            </div>
           </div>
+          <div className="hidden sm:block w-px h-10 bg-white/10" />
           <div className="flex flex-col leading-tight">
-            <span className="text-xs uppercase tracking-wider text-muted-foreground">
-              Te lo firma
+            <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+              Built on
             </span>
-            <span className="text-base sm:text-lg font-semibold text-foreground">
-              Emily — tu asistente
+            <span className="text-sm font-medium text-foreground/80">
+              v0 · Anthropic · Supabase · Vercel
             </span>
           </div>
         </motion.div>
