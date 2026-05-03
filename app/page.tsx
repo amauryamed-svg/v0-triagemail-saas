@@ -7,150 +7,167 @@ import { EmilyAvatar } from "@/components/triagemail/emily-avatar"
 import { Button } from "@/components/ui/button"
 
 /**
- * Landing fullscreen responsive — la "OG image hecha página".
- * Reemplaza el redirect anterior a /onboarding.
+ * Intro landing — el HOOK como protagonista visual.
  *
- * Avatar Emily gigante con clamp() para escalar fluido entre 180px
- * (mobile) y 360px (desktop). H1 con text-5xl → text-8xl.
- * 3 CTAs principales: Empezar (onboarding) · Ver demo · GitHub.
- * Footer con link al showcase del hackathon + hashtag.
+ * El hook ocupa la mayor parte de la pantalla con tipografía gigante
+ * (clamp() para escalar fluido, hasta ~10rem en desktop).
+ * Emily aparece como firma con avatar pequeño abajo del hook, no
+ * compite por atención.
+ * Dos glow blobs + grid background sutil para profundidad cinemática.
  */
 export default function LandingPage() {
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-background flex items-center justify-center">
-      {/* Decorative glow — top right, lavender */}
+    <main className="relative min-h-screen w-full overflow-hidden bg-background flex flex-col">
+      {/* Grid background sutil */}
       <div
-        className="absolute -top-32 -right-32 sm:-top-48 sm:-right-48 w-[80vw] h-[80vw] max-w-[900px] max-h-[900px] rounded-full pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Glow top-right */}
+      <div
+        className="absolute -top-32 -right-32 sm:-top-48 sm:-right-48 w-[80vw] h-[80vw] max-w-[1100px] max-h-[1100px] rounded-full pointer-events-none"
         style={{
           background:
             "radial-gradient(circle, rgba(124,122,237,0.22) 0%, rgba(124,122,237,0.08) 35%, rgba(124,122,237,0) 70%)",
         }}
       />
-      {/* Decorative glow — bottom left, subtle */}
+      {/* Glow bottom-left */}
       <div
-        className="absolute -bottom-32 -left-32 w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full pointer-events-none opacity-60"
+        className="absolute -bottom-32 -left-32 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full pointer-events-none opacity-60"
         style={{
           background:
-            "radial-gradient(circle, rgba(124,122,237,0.12) 0%, rgba(124,122,237,0) 60%)",
+            "radial-gradient(circle, rgba(124,122,237,0.14) 0%, rgba(124,122,237,0) 60%)",
         }}
       />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 lg:py-20">
-        <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-center">
-          {/* Big Emily avatar */}
-          <motion.div
-            initial={{ scale: 0.6, opacity: 0, rotate: -8 }}
-            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 180, damping: 18, delay: 0.1 }}
-            className="mx-auto lg:mx-0"
-            style={{
-              width: "clamp(200px, 32vw, 380px)",
-              height: "clamp(200px, 32vw, 380px)",
-            }}
-          >
-            <div className="w-full h-full rounded-[2.5rem] lg:rounded-[3rem] bg-brand flex items-center justify-center p-4 lg:p-6 shadow-2xl shadow-brand/30">
-              <EmilyAvatar />
-            </div>
-          </motion.div>
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 flex-1 flex flex-col justify-center py-16 lg:py-20">
+        {/* Eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-brand mb-8 lg:mb-12"
+        >
+          TriageMail · AI-Powered Mail Triage Agent · Vercel Zero to Agent
+        </motion.p>
 
-          {/* Copy */}
-          <div className="space-y-6 lg:space-y-7 text-center lg:text-left">
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand"
-            >
-              TriageMail · AI-Powered Mail Triage Agent
-            </motion.p>
+        {/* HERO HOOK — el protagonista absoluto */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
+          className="font-bold tracking-tight text-foreground leading-[0.92]"
+          style={{
+            fontSize: "clamp(2.75rem, 9.5vw, 11rem)",
+            letterSpacing: "-0.035em",
+          }}
+        >
+          Me llevo tu inbox
+          <br />
+          <span className="text-foreground/85">los sábados.</span>
+        </motion.h1>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground leading-[0.95]"
-            >
-              Hola, soy Emily.
-            </motion.h1>
+        {/* Sub-hook */}
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-6 lg:mt-10 text-muted-foreground leading-snug max-w-4xl"
+          style={{ fontSize: "clamp(1.125rem, 2.4vw, 2rem)" }}
+        >
+          Tú apruebas. Yo nunca envío sola.{" "}
+          <span className="text-foreground/70">Tres minutos para empezar.</span>
+        </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-lg sm:text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0"
-            >
-              Me llevo tu inbox los sábados. Tú apruebas. Yo nunca envío sola.
-              <span className="block mt-2 text-foreground/85">
-                Tres minutos para empezar.
-              </span>
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-3 pt-2 justify-center lg:justify-start"
-            >
-              <Link href="/onboarding" className="contents">
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto bg-brand hover:bg-brand/90 text-white gap-2 h-12 px-7 text-base font-medium active:scale-[0.98] transition-transform"
-                >
-                  Empezar
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/dashboard" className="contents">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-auto h-12 px-7 text-base font-medium border-white/[0.1] hover:bg-white/[0.04]"
-                >
-                  Ver demo
-                </Button>
-              </Link>
-              <a
-                href="https://github.com/amauryamed-svg/v0-triagemail-saas"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contents"
-              >
-                <Button
-                  size="lg"
-                  variant="ghost"
-                  className="w-full sm:w-auto h-12 px-6 text-base font-medium gap-2"
-                >
-                  <Github className="w-4 h-4" />
-                  GitHub
-                </Button>
-              </a>
-            </motion.div>
-
-            {/* Hackathon footer */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="pt-6 lg:pt-10 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm text-muted-foreground justify-center lg:justify-start"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-brand" />
-              <span>Submitted to</span>
-              <a
-                href="https://community.vercel.com/hackathons/zero-to-agent/showcase"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-brand underline underline-offset-4 decoration-brand/40 transition-colors font-medium inline-flex items-center gap-1"
-              >
-                Vercel Zero to Agent
-                <Vote className="w-3.5 h-3.5" />
-              </a>
-              <span className="opacity-40">·</span>
-              <span>Track 2 — v0 + MCPs</span>
-              <span className="opacity-40">·</span>
-              <span className="text-brand font-medium">#ZeroToAgent</span>
-            </motion.div>
+        {/* Firma Emily — avatar chico inline + nombre */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="mt-8 lg:mt-12 flex items-center gap-3"
+        >
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand flex items-center justify-center p-1.5 shadow-lg shadow-brand/30">
+            <EmilyAvatar />
           </div>
-        </div>
+          <div className="flex flex-col leading-tight">
+            <span className="text-xs uppercase tracking-wider text-muted-foreground">
+              Te lo firma
+            </span>
+            <span className="text-base sm:text-lg font-semibold text-foreground">
+              Emily — tu asistente
+            </span>
+          </div>
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85 }}
+          className="mt-10 lg:mt-14 flex flex-col sm:flex-row gap-3"
+        >
+          <Link href="/onboarding" className="contents">
+            <Button
+              size="lg"
+              className="w-full sm:w-auto bg-brand hover:bg-brand/90 text-white gap-2 h-14 px-8 text-base font-medium active:scale-[0.98] transition-transform shadow-xl shadow-brand/20"
+            >
+              Empezar
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+          <Link href="/dashboard" className="contents">
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full sm:w-auto h-14 px-8 text-base font-medium border-white/[0.1] hover:bg-white/[0.04]"
+            >
+              Ver demo
+            </Button>
+          </Link>
+          <a
+            href="https://github.com/amauryamed-svg/v0-triagemail-saas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contents"
+          >
+            <Button
+              size="lg"
+              variant="ghost"
+              className="w-full sm:w-auto h-14 px-7 text-base font-medium gap-2"
+            >
+              <Github className="w-4 h-4" />
+              GitHub
+            </Button>
+          </a>
+        </motion.div>
+
+        {/* Hackathon footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.05 }}
+          className="mt-12 lg:mt-20 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm text-muted-foreground"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-brand" />
+          <span>Submitted to</span>
+          <a
+            href="https://community.vercel.com/hackathons/zero-to-agent/showcase"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-foreground hover:text-brand underline underline-offset-4 decoration-brand/40 transition-colors font-medium inline-flex items-center gap-1"
+          >
+            Vercel Zero to Agent
+            <Vote className="w-3.5 h-3.5" />
+          </a>
+          <span className="opacity-40">·</span>
+          <span>Track 2 — v0 + MCPs</span>
+          <span className="opacity-40">·</span>
+          <span className="text-brand font-medium">#ZeroToAgent</span>
+        </motion.div>
       </div>
     </main>
   )
