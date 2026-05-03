@@ -7,27 +7,6 @@ import { EmilyAvatar } from "@/components/triagemail/emily-avatar"
 export function Screen1Hook() {
   return (
     <section className="snap-start min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16">
-      {/* Hero video — partículas lavender en loop. Si el browser bloquea autoplay
-          o el archivo no carga, los glow blobs siguen sosteniendo la atmósfera. */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-40 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.55)_70%,rgba(0,0,0,0)_100%)]"
-      >
-        <source src="/landing/hero-loop.mp4" type="video/mp4" />
-      </video>
-      {/* Vignette para asegurar legibilidad del hook sobre el video */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(10,10,11,0) 0%, rgba(10,10,11,0.45) 65%, rgba(10,10,11,0.85) 100%)",
-        }}
-      />
       {/* Grid sutil */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"

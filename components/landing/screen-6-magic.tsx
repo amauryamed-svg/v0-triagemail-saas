@@ -2,40 +2,13 @@
 
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { Mail, Check, X, Pencil } from "lucide-react"
 
 const TARGET_COUNT = 47
 const DURATION_MS = 30_000
 
-const SAMPLE_CARDS = [
-  {
-    id: 1,
-    sender: "Patricia · Bezos Earth Fund",
-    subject: "Renovación propuesta",
-    label: "CRÍTICO",
-    color: "rgb(229,72,77)",
-    icon: Pencil,
-  },
-  {
-    id: 2,
-    sender: "Lucía · Field PM Yunguilla",
-    subject: "Reporte M&E Q1",
-    label: "BORRADOR",
-    color: "rgb(124,122,237)",
-    icon: Pencil,
-  },
-  {
-    id: 3,
-    sender: "Devex Newsletter",
-    subject: "Top stories",
-    label: "ELIMINAR",
-    color: "rgb(161,161,170)",
-    icon: X,
-  },
-]
-
 export function Screen6Magic() {
   const ref = useRef(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const inView = useInView(ref, { once: false, margin: "-30%" })
   const [count, setCount] = useState(0)
   const [drafts, setDrafts] = useState(0)
@@ -44,8 +17,10 @@ export function Screen6Magic() {
     if (!inView) {
       setCount(0)
       setDrafts(0)
+      videoRef.current?.pause()
       return
     }
+    videoRef.current?.play().catch(() => {})
     const start = Date.now()
     const interval = setInterval(() => {
       const t = Math.min(1, (Date.now() - start) / DURATION_MS)
@@ -68,7 +43,7 @@ export function Screen6Magic() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="font-bold tracking-tight text-foreground leading-[0.95] mb-12"
+          className="font-bold tracking-tight text-foreground leading-[0.95] mb-10"
           style={{
             fontSize: "clamp(2rem, 5.5vw, 4.5rem)",
             letterSpacing: "-0.025em",
@@ -100,43 +75,27 @@ export function Screen6Magic() {
           </div>
         </div>
 
-        {/* Sample cards aparecen con stagger */}
-        <div className="space-y-3">
-          {SAMPLE_CARDS.map((card, i) => {
-            const showAt = (i + 1) * 0.25
-            const visible = progress >= showAt * 100
-            const Icon = card.icon
-            return (
-              <motion.div
-                key={card.id}
-                animate={visible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ duration: 0.4 }}
-                className="flex items-center gap-4 p-4 rounded-xl border border-white/[0.06] bg-surface"
-              >
-                <div className="w-9 h-9 rounded-lg bg-white/[0.04] flex items-center justify-center shrink-0">
-                  <Mail className="w-4 h-4 text-muted-foreground" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">
-                    {card.sender}
-                  </p>
-                  <p className="text-xs text-muted-foreground truncate">{card.subject}</p>
-                </div>
-                <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wider shrink-0"
-                  style={{
-                    background: `${card.color}15`,
-                    color: card.color,
-                    border: `1px solid ${card.color}30`,
-                  }}
-                >
-                  <Icon className="w-3 h-3" />
-                  {card.label}
-                </span>
-              </motion.div>
-            )
-          })}
-        </div>
+        {/* Demo tour real — Bandeja → Contactos → Modos → Ajustes */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.3, duration: 0.7 }}
+          className="relative rounded-2xl overflow-hidden border border-white/10 bg-surface shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
+          style={{ aspectRatio: "16 / 9" }}
+        >
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Tour del producto: Bandeja, Contactos, Modos, Ajustes"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/landing/demo-tour.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
       </div>
     </section>
   )
