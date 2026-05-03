@@ -91,11 +91,11 @@ export const EMILY_HEURISTICS: HeuristicRule[] = [
   // ==========================================================================
   {
     id: "multi-channel-escalation",
-    name: "Multi-Channel Urgency Detection",
+    name: "Multi-Channel Relevance Signal",
     condition: "Contact reaches out via WhatsApp/Instagram AND email within matching window",
-    action: "ESCALATE to DO_FIRST quadrant, notify immediately",
-    emilyRationale: "When someone is persistent enough to use multiple channels, they're not being dramatic—they're desperate. I don't ignore desperation; I address it before it becomes a crisis that interrupts your dinner.",
-    priority: 10
+    action: "FLAG as live relationship — verify cross-channel coherence before drafting. Only escalate to DO_FIRST if the message itself carries an explicit deadline.",
+    emilyRationale: "Cuando alguien te busca por varios canales no necesariamente es urgencia: es una relación que respira. Lo que hago es revisar que lo que dijiste por un canal no contradiga lo del otro y consolidar la respuesta en el canal que más le sirve a la relación. Solo subo a DO_FIRST si dentro del mensaje aparece un deadline real.",
+    priority: 7
   },
   {
     id: "deadline-proximity",
@@ -235,8 +235,16 @@ export const EMILY_STATUS_MESSAGES = {
 }
 
 export const EMILY_REASONING_TEMPLATES = {
-  multiChannelTrigger: (channels: string[]) => 
-    `${channels.join(" + ")} en ventana de coincidencia. Cuando alguien insiste por múltiples vías, no es capricho—es urgencia. Lo he escalado.`,
+  multiChannelTrigger: (channels: string[]) =>
+    `${channels.join(" + ")} en ventana de coincidencia. Lo leo como relación viva, no como urgencia automática. Verifico congruencia antes de responder y consolido la respuesta en un solo canal.`,
+
+  crossChannelCoherenceFlag: (channels: string[], lastTouchSummary: string) =>
+    `Coherencia cross-canal: la persona también te escribió por ${channels.join(" / ")}. Última huella: "${lastTouchSummary}". Antes de mandar, verifico que el draft no contradiga lo dicho ahí.`,
+
+  purposeAlignmentNote: (purpose: string, status: "aligned" | "drift") =>
+    status === "aligned"
+      ? `Alineado con propósito org "${purpose}". Sigo.`
+      : `El draft se está saliendo del propósito org "${purpose}". Lo recalibro antes de pasarte el borrador.`,
   
   deadlineDetected: (deadline: string, hours: number) =>
     `Deadline detectado: ${deadline}. ${hours}h restantes. He bloqueado tiempo en tu calendario para que puedas responder con la atención que merece.`,
@@ -298,12 +306,13 @@ export function classifyEmail(
   const sortedHeuristics = [...EMILY_HEURISTICS].sort((a, b) => b.priority - a.priority)
   
   for (const heuristic of sortedHeuristics) {
-    // Multi-channel escalation
+    // Multi-channel — señal de relevancia (NO urgencia automática).
+    // Solo registra el aplicado-heurístico; el ascenso a DO_FIRST queda
+    // condicionado a que la regla de deadline-proximity lo amerite por su cuenta.
     if (heuristic.id === "multi-channel-escalation" && email.multiChannelTrigger) {
       appliedHeuristics.push(heuristic)
-      quadrant = "DO_FIRST"
-      timeScale = "IMMEDIATE"
-      suggestedAction = "respond_now"
+      // Sin cambio de quadrant ni timeScale aquí: dejamos que deadline-proximity
+      // decida si esto es urgente. Mantener relación viva ≠ apurar respuesta.
     }
     
     // Deadline proximity

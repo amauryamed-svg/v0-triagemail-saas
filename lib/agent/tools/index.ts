@@ -12,6 +12,7 @@ import {
   classifyEmail,
   type EisenhowerQuadrant,
 } from "../../emily-heuristics"
+import { callJuniorMCP } from "../junior-mcp"
 
 /* -------------------------------------------------------------------------- */
 /*  Schemas compartidos                                                       */
@@ -264,6 +265,52 @@ export const sendDraft = tool({
 })
 
 /* -------------------------------------------------------------------------- */
+/*  Tool: junior_compose_gmail — Senior delega a Gemini-en-Gmail vía MCP      */
+/* -------------------------------------------------------------------------- */
+
+const JuniorComposeInput = z.object({
+  thread_context: z
+    .string()
+    .max(6000)
+    .describe("Hilo del correo (snippet + body) para que el junior tenga contexto."),
+  intent: z
+    .string()
+    .max(500)
+    .describe("Qué quiere lograr el draft (responder, reagendar, declinar, etc.)."),
+  target_node: z
+    .enum([
+      "internal",
+      "donor",
+      "partner",
+      "field",
+      "board",
+      "compliance",
+      "vendor",
+      "press",
+      "other_external",
+    ])
+    .describe("Nodo del destinatario para que el junior pre-calibre el registro."),
+})
+
+export const juniorComposeGmail = tool({
+  description:
+    "Pide al junior MCP de Gmail (Gemini) un draft sugerido. El Senior debe calibrar la respuesta antes de create_draft. Si junior offline, devuelve fallback envelope y el Senior procede solo.",
+  inputSchema: JuniorComposeInput,
+  execute: async ({ thread_context, intent, target_node }) => {
+    return await callJuniorMCP("gmail", { thread_context, intent, target_node })
+  },
+})
+
+export const juniorComposeOutlook = tool({
+  description:
+    "Pide al junior MCP de Outlook (Copilot/M365) un draft sugerido. El Senior debe calibrar la respuesta antes de create_draft. Si junior offline, devuelve fallback envelope y el Senior procede solo.",
+  inputSchema: JuniorComposeInput,
+  execute: async ({ thread_context, intent, target_node }) => {
+    return await callJuniorMCP("outlook", { thread_context, intent, target_node })
+  },
+})
+
+/* -------------------------------------------------------------------------- */
 /*  Helper: classifyWithEmily — usa heurísticas locales para sugerir          */
 /* -------------------------------------------------------------------------- */
 
@@ -299,6 +346,8 @@ export const REVIEW_TOOLS = {
 export const AUTOMODE_TOOLS = {
   prioritize_email: prioritizeEmail,
   check_cross_platform_push: checkCrossPlatformPush,
+  junior_compose_gmail: juniorComposeGmail,
+  junior_compose_outlook: juniorComposeOutlook,
   create_draft: createDraft,
   generate_voice_note: generateVoiceNote,
   request_approval: requestApproval,

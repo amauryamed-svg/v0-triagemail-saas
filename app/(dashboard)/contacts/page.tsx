@@ -99,13 +99,13 @@ export default function ContactsPage() {
       {/* Header */}
       <div>
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-          CRM Relacional · Inbound + Outbound
+          Relacionamiento institucional · Inbound + Outbound
         </p>
         <h1 className="text-2xl font-semibold text-foreground mb-2">
-          Contactos
+          Relaciones
         </h1>
         <p className="text-muted-foreground">
-          Las personas con las que Emily organiza tu inbox. Internas, externas, y todo lo que va y viene.
+          Los nodos con los que Emily organiza tu inbox. Equipo, donantes, contrapartes, comités, campo y compliance — cada uno con su propio idioma.
         </p>
       </div>
 

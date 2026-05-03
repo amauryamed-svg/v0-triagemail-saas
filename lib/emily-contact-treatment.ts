@@ -88,6 +88,170 @@ export const CONTACT_TYPE_TONE: Record<ContactType, string> = {
   other_external: "Evalúa caso a caso.",
 }
 
+/* -------------------------------------------------------------------------- */
+/*  Registro lingüístico por nodo                                              */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * `LANGUAGE_REGISTER_BY_NODE` — la guía de traducción que Emily aplica al
+ * reescribir un draft entre nodos. Cada entrada describe el registro
+ * (formality, sintaxis, léxico) sin cambiar la sustancia del mensaje.
+ *
+ * Se inyecta en el system prompt cuando el agente llama a `translate_for_node`
+ * o cuando el draft sale a un contacto cuyo `contact_type` es conocido.
+ *
+ * Pensado como complemento de `CONTACT_TYPE_TONE`: tone = actitud, register =
+ * estructura del lenguaje.
+ */
+export interface LanguageRegister {
+  /** Etiqueta breve para mostrar en UI ("Formal-numérico", "Colegial-async"). */
+  short: string
+  /** Cómo abre normalmente. Útil como anchor para el LLM. */
+  opening: string
+  /** Cómo cierra. */
+  closing: string
+  /** Reglas explícitas de léxico/sintaxis que Emily debe respetar. */
+  syntaxRules: string[]
+  /** Acrónimos típicos que se pueden usar sin glosario. */
+  acronymsAllowed: string[]
+  /** Cosas que evitar en este registro. */
+  avoid: string[]
+}
+
+export const LANGUAGE_REGISTER_BY_NODE: Record<ContactType, LanguageRegister> = {
+  internal: {
+    short: "Colegial-async",
+    opening: "Hola [nombre],",
+    closing: "Gracias.",
+    syntaxRules: [
+      "Tutea siempre.",
+      "Una idea por oración. Conectores cohesivos suaves (además, así que, pero).",
+      "Bullets cuando hay 3+ ítems.",
+      "Acción concreta al final.",
+    ],
+    acronymsAllowed: ["M&E", "MEAL", "ToR", "PMU", "RFP", "WG"],
+    avoid: ["fórmulas formales largas", "saludos protocolarios", "español neutro académico"],
+  },
+  donor: {
+    short: "Formal-cuidadoso",
+    opening: "Estimada/o [nombre],",
+    closing: "Quedo atento/a.",
+    syntaxRules: [
+      "Usted en todo el mensaje.",
+      "Reconoce la institución del donante en la primera línea.",
+      "Cifras siempre con moneda y año fiscal.",
+      "Nunca compromisos económicos sin firma de finanzas.",
+      "Cierra con próximo touchpoint concreto (fecha + entregable).",
+    ],
+    acronymsAllowed: ["MoU", "ToR", "RFP", "ESG", "NDC", "SDGs", "logframe"],
+    avoid: ["jerga interna", "tuteo", "promesas sin respaldo financiero"],
+  },
+  partner: {
+    short: "Diplomático",
+    opening: "Apreciada/o [organización] / [nombre],",
+    closing: "Un cordial saludo.",
+    syntaxRules: [
+      "Reconoce la institución antes que a la persona.",
+      "Voz pasiva moderada cuando atribuyes mérito compartido.",
+      "Evita imperativos directos — prefiere 'sugerimos', 'proponemos'.",
+      "Cita el marco compartido (MoU, plan operativo) cuando exista.",
+    ],
+    acronymsAllowed: ["MoU", "PMU", "ToR", "M&E", "MEAL"],
+    avoid: ["lenguaje unilateral", "exigencias", "tuteo no acordado"],
+  },
+  field: {
+    short: "Cálido-ejecutivo",
+    opening: "Hola [nombre],",
+    closing: "Cuídate.",
+    syntaxRules: [
+      "Tutea. Calidez genuina al inicio.",
+      "Pasa rápido a la acción concreta o pregunta operativa.",
+      "Si reporte de incidente: confirma recepción + qué hago yo + cuándo te contesto.",
+      "Reconoce el contexto de campo (tiempos, conectividad).",
+    ],
+    acronymsAllowed: ["M&E", "MEAL", "POG"],
+    avoid: ["formalismos", "burocracia visible", "jerga de oficina central"],
+  },
+  board: {
+    short: "Posición-país",
+    opening: "Estimadas/os miembros del [comité/consejo],",
+    closing: "Quedo a su disposición.",
+    syntaxRules: [
+      "Estructura: contexto → posición → recomendación → riesgos → entregable.",
+      "Una decisión solicitada por mensaje, máximo dos.",
+      "Plazos sagrados — siempre confirma fecha de pre-lectura y de sesión.",
+      "Cita el acta o documento previo si aplica.",
+    ],
+    acronymsAllowed: ["ToR", "MoU", "WG", "logframe", "M&E"],
+    avoid: ["divagar", "datos sin fuente", "pedir 'feedback general'"],
+  },
+  compliance: {
+    short: "Técnico-legal",
+    opening: "Estimada/o [nombre],",
+    closing: "Atentamente.",
+    syntaxRules: [
+      "Frase corta, sujeto-verbo-objeto.",
+      "Cita anexo y artículo cuando aplique (Anexo 2, art. 4.3).",
+      "Fechas en formato completo (20 de mayo de 2026).",
+      "Cero ambigüedad — si falta info, pídela explícita y con plazo.",
+    ],
+    acronymsAllowed: ["KYC", "PEP", "ESG", "due diligence", "anti-corrupción"],
+    avoid: ["ambigüedad", "opiniones", "lenguaje afectivo", "promesas verbales"],
+  },
+  vendor: {
+    short: "Cortés-breve",
+    opening: "Hola [nombre],",
+    closing: "Saludos.",
+    syntaxRules: [
+      "Máximo 3 líneas.",
+      "Decline o reagendar como videollamada de 15 min.",
+      "Si no aplica el servicio, dilo derecho una vez y cierra.",
+    ],
+    acronymsAllowed: [],
+    avoid: ["discusiones técnicas largas", "compromisos abiertos"],
+  },
+  press: {
+    short: "Solo-lectura",
+    opening: "—",
+    closing: "—",
+    syntaxRules: [
+      "Por defecto no responder.",
+      "Si press release activo + autorizado por comms: responder con la línea oficial, sin agregar.",
+    ],
+    acronymsAllowed: [],
+    avoid: ["improvisar declaraciones", "interpretar política org"],
+  },
+  other_external: {
+    short: "Caso-a-caso",
+    opening: "Hola [nombre],",
+    closing: "Saludos.",
+    syntaxRules: [
+      "Ajusta al registro que use el remitente.",
+      "Si formal → usted; si tutea → tuteo.",
+      "Mantén respuesta breve hasta saber el contexto.",
+    ],
+    acronymsAllowed: [],
+    avoid: ["asumir relación previa que no existe"],
+  },
+}
+
+/**
+ * `EMILY_LANGUAGE_REGISTER_MEMORY` — facade compacta para inyectar en system
+ * prompts. Convierte el record completo en un bloque de texto manejable.
+ */
+export const EMILY_LANGUAGE_REGISTER_MEMORY = `
+REGISTRO LINGÜÍSTICO POR NODO (úsalo cuando traduzcas o calibres un draft):
+
+${(Object.keys(LANGUAGE_REGISTER_BY_NODE) as ContactType[])
+  .map((node) => {
+    const r = LANGUAGE_REGISTER_BY_NODE[node]
+    return `· ${node} (${r.short}) — abre: "${r.opening}" / cierra: "${r.closing}". Reglas: ${r.syntaxRules.join(" ")} Acrónimos OK: ${r.acronymsAllowed.join(", ") || "—"}. Evita: ${r.avoid.join(", ")}.`
+  })
+  .join("\n")}
+
+REGLA META: El contenido del mensaje no cambia entre nodos. Solo cambia el envoltorio (apertura, sintaxis, léxico, cierre). Si te piden traducir, conserva los hechos textuales y reescribe el envoltorio.
+`.trim()
+
 export const CADENCE_LABEL: Record<Cadence, string> = {
   daily: "Diaria",
   weekly: "Semanal",

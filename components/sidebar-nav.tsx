@@ -12,7 +12,8 @@ import {
   Users,
   ChevronLeft,
   ChevronRight,
-  Filter
+  Filter,
+  Network
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { EmilyAvatar } from "@/components/triagemail/emily-avatar"
@@ -21,7 +22,8 @@ import { cn } from "@/lib/utils"
 const navItems = [
   { href: "/dashboard", label: "Bandeja", icon: Inbox },
   { href: "/drafts", label: "Borradores", icon: FileEdit },
-  { href: "/contacts", label: "Contactos", icon: Users },
+  { href: "/rolodex", label: "Rolodex", icon: Network },
+  { href: "/contacts", label: "Relaciones", icon: Users },
   { href: "/modes", label: "Modos", icon: Layers },
   { href: "/rules", label: "Reglas", icon: Filter },
   { href: "/settings", label: "Ajustes", icon: Settings },
